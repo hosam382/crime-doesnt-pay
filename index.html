@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#171B20">
+<meta name="description" content="تدريب النطق لعرض Crime Doesn't Pay — اسمع كل جملة، قلها، والموقع يصحح لك.">
+<title>Crime Doesn't Pay — تدريب النطق</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cairo:wght@400;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#171B20;--dark2:#262C33;--yellow:#FFC72C;--cyan:#1FA9D6;--cyan-dk:#0B6E91;--red:#E23D3D;--green:#1F9D61;--bg:#F1F3F5;--card:#fff;--ink:#0F1215;--muted:#6B7580;--line:#E2E6EA;--r:16px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,system-ui,sans-serif;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+button{font-family:inherit;cursor:pointer}
+.en{font-family:Inter,system-ui,sans-serif;direction:ltr;text-align:left}
+.display{font-family:Anton,Impact,sans-serif;font-weight:400;letter-spacing:.5px}
+.wrap{max-width:640px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right,0px)) 100px max(16px,env(safe-area-inset-left,0px))}
+.bar{position:sticky;top:0;z-index:20;background:var(--dark);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.bar a.back{flex:none;width:42px;height:42px;border-radius:12px;background:var(--dark2);display:grid;place-items:center;color:#fff;text-decoration:none;font-size:22px}
+.bar .t{font-family:Anton,Impact,sans-serif;font-size:20px;direction:ltr;line-height:1;text-align:right}
+.bar .t span{color:var(--cyan)}
+.bar .s{font-size:12px;color:#c9d0d7;margin-top:3px}
+.tape{background:var(--yellow);color:#111;font-family:Anton,Impact,sans-serif;font-size:11px;letter-spacing:2.5px;text-align:center;padding:4px 0;direction:ltr;white-space:nowrap;overflow:hidden}
+.hero{background:var(--dark);color:#fff;border-radius:var(--r);padding:16px;margin-top:14px;display:flex;gap:14px;align-items:center;box-shadow:0 8px 24px rgba(23,27,32,.25)}
+.marker{flex:none;width:54px;height:62px;background:var(--yellow);clip-path:polygon(24% 0,76% 0,100% 100%,0 100%);display:grid;place-items:end center;color:#111;font-family:Anton,Impact,sans-serif;font-size:28px;padding-bottom:3px}
+.marker.sm{width:40px;height:46px;font-size:20px;padding-bottom:2px}
+.hero .who{flex:1;min-width:0}
+.hero .name{font-family:Anton,Impact,sans-serif;font-size:30px;direction:ltr;text-align:right;line-height:1}
+.hero .arname{color:#d5dbe1;font-size:15px;margin-top:2px}
+.hero .role{font-size:13px;color:#c9d0d7;margin-top:6px;line-height:1.6}
+.hero .role b{color:var(--yellow)}
+.prog{margin-top:10px;height:8px;background:#2e353d;border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--yellow);border-radius:99px;transition:width .5s}
+.progt{font-size:12px;color:#c9d0d7;margin-top:5px}
+.tabs{position:sticky;top:62px;z-index:15;display:flex;gap:6px;background:var(--bg);padding:10px 0 8px}
+.tab{flex:1;border:0;background:#fff;border-radius:12px;padding:10px 4px;font-weight:800;font-size:13px;color:var(--muted);box-shadow:0 1px 3px rgba(0,0,0,.06);white-space:nowrap}
+.tab.on{background:var(--dark);color:#fff}
+.tab .c{display:inline-block;min-width:18px;padding:0 5px;border-radius:99px;background:var(--yellow);color:#111;font-size:11px;margin-inline-start:3px}
+h2.sec{font-size:15px;margin:16px 2px 2px;display:flex;align-items:center;gap:8px}
+h2.sec::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--yellow);flex:none}
+h2.sec .en{color:var(--muted);font-weight:600;font-size:13px}
+.hint{font-size:13px;color:var(--muted);margin:4px 2px 0;line-height:1.7}
+.card{background:#fff;border-radius:var(--r);padding:14px;margin-top:12px;box-shadow:0 2px 10px rgba(0,0,0,.05);position:relative;overflow:hidden;transition:box-shadow .2s}
+.card.focus{box-shadow:0 0 0 3px var(--yellow),0 6px 20px rgba(0,0,0,.1)}
+.chead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.num{flex:none;width:28px;height:28px;border-radius:8px;background:var(--yellow);display:grid;place-items:center;font-weight:800;font-size:14px;color:#111}
+.done{margin-inline-start:auto;font-size:12px;color:var(--green);font-weight:800;background:#DFF5E8;border-radius:99px;padding:2px 10px}
+.qrow{display:flex;gap:8px;align-items:center;margin-bottom:10px;background:var(--bg);border-radius:12px;padding:8px 10px}
+.qrow .qplay{flex:none;width:36px;height:36px;border-radius:10px;border:0;background:var(--dark);color:#fff;font-size:14px}
+.qrow .q{font-family:Inter,system-ui,sans-serif;direction:ltr;text-align:left;font-weight:700;font-size:15px;color:var(--cyan-dk);flex:1}
+.line{font-family:Inter,system-ui,sans-serif;direction:ltr;text-align:left;font-size:21px;line-height:1.6;font-weight:600;color:var(--ink);word-spacing:1px}
+.line .w{display:inline-block;border-radius:6px;padding:0 3px;margin:0 -1px;cursor:pointer;transition:background .15s,color .15s}
+.line .w.now{background:var(--yellow);color:#111}
+.line .w.ok{background:#DFF5E8;color:#0F6B40}
+.line .w.close{background:#FFF1C2;color:#7A5A00}
+.line .w.miss{background:#FFE0E0;color:#A51D1D;text-decoration:underline wavy #E23D3D;text-underline-offset:3px}
+.ar{color:var(--muted);font-size:14px;margin-top:8px;line-height:1.7}
+.acts{display:flex;gap:8px;margin-top:12px}
+.btn{flex:1;border:0;border-radius:12px;padding:12px 6px;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--bg);color:var(--ink);min-height:46px}
+.btn:active{transform:scale(.97)}
+.btn.mic{background:var(--dark);color:#fff;flex:1.5}
+.btn.mic.rec{background:var(--red);animation:pulse 1.1s infinite}
+.btn.next{background:var(--green);color:#fff}
+.btn.again{background:var(--bg)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(226,61,61,.55)}60%{box-shadow:0 0 0 12px rgba(226,61,61,0)}}
+.live{direction:ltr;text-align:left;font-family:Inter,system-ui,sans-serif;font-size:14px;color:var(--muted);margin-top:8px;min-height:20px;line-height:1.5}
+.res{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+.score{display:flex;align-items:center;gap:12px}
+.pct{flex:none;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;font-family:Anton,Impact,sans-serif;font-size:22px;color:#fff;background:var(--muted)}
+.pct.g{background:var(--green)}.pct.y{background:#E0A300}.pct.r{background:var(--red)}
+.msg{font-weight:800;font-size:15px;line-height:1.5}
+.heard{font-family:Inter,system-ui,sans-serif;direction:ltr;text-align:left;font-size:13px;color:var(--muted);margin-top:4px}
+.heard b{font-family:Cairo,sans-serif;font-weight:700;direction:rtl}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;direction:ltr}
+.chip{border:0;background:#FFF1C2;border-radius:999px;padding:8px 12px;font-weight:700;font-size:14px;display:flex;gap:7px;align-items:center;color:#111}
+.chip.miss{background:#FFE0E0}
+.chip .en{font-weight:700}
+.chip .say{font-family:Cairo,sans-serif;font-size:12px;color:var(--cyan-dk);direction:rtl}
+.legend{display:flex;gap:10px;font-size:12px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-inline-end:3px}
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.wcard{background:#fff;border:0;border-radius:14px;padding:12px 8px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);display:block;width:100%}
+.wcard .en{font-weight:700;font-size:17px;text-align:center}
+.wcard .say{color:var(--cyan-dk);font-weight:800;margin-top:4px;font-size:15px}
+.wcard .m{color:var(--muted);font-size:13px;margin-top:2px}
+.wcard .spk{font-size:12px;color:var(--muted);margin-top:4px}
+.home-hero{background:var(--dark);color:#fff;border-radius:var(--r);padding:22px 18px 20px;margin-top:14px;position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(23,27,32,.25)}
+.home-hero .k{color:var(--yellow);font-size:11px;letter-spacing:3px;font-weight:800;direction:ltr;text-align:right;font-family:Inter,sans-serif}
+.home-hero h1{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:44px;line-height:1;margin:6px 0 0;direction:ltr;text-align:right}
+.home-hero h1 span{color:var(--cyan)}
+.home-hero p{margin:10px 0 0;color:#d5dbe1;font-size:15px;line-height:1.7}
+.mem{display:flex;align-items:center;gap:12px;background:#fff;border-radius:var(--r);padding:12px 14px;margin-top:10px;text-decoration:none;color:var(--ink);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.mem:active{transform:scale(.99)}
+.mem .who{flex:1;min-width:0}
+.mem .name{font-family:Anton,Impact,sans-serif;font-size:22px;direction:ltr;text-align:right;line-height:1.05}
+.mem .name small{font-family:Cairo,sans-serif;font-size:14px;color:var(--muted);margin-right:8px}
+.mem .sub{font-size:13px;color:var(--muted);margin-top:3px}
+.mem .pr{height:5px;background:var(--bg);border-radius:99px;margin-top:7px;overflow:hidden}
+.mem .pr i{display:block;height:100%;background:var(--green);border-radius:99px}
+.mem .go{color:var(--muted);font-size:24px;flex:none}
+.note{background:#FFF7DB;border:1.5px solid var(--yellow);border-radius:14px;padding:12px 14px;margin-top:12px;font-size:14px;line-height:1.8}
+.note.warn{background:#FFE9E9;border-color:var(--red)}
+.note .btn{margin-top:8px;flex:none;width:100%}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:12px 18px;border-radius:14px;font-size:14px;z-index:50;max-width:92vw;box-shadow:0 8px 24px rgba(0,0,0,.3);line-height:1.6;text-align:center}
+.conf{position:absolute;font-size:22px;pointer-events:none;animation:fly 1.1s ease-out forwards}
+@keyframes fly{0%{transform:translateY(0) scale(.6);opacity:1}100%{transform:translateY(-120px) scale(1.2);opacity:0}}
+.panel[hidden]{display:none}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>/* Pronunciation scoring: aligns what the phone heard against the target sentence,
+   word by word, and marks each target word ok / close / miss.
+   Plain JS — inlined into the site and also required by the node tests. */
+var Scoring = (function () {
+  var EXPANSIONS = {
+    doesnt: ["does", "not"], dont: ["do", "not"], its: ["it", "is"], lets: ["let", "us"],
+    cant: ["can", "not"], cannot: ["can", "not"], well: ["we", "will"], im: ["i", "am"], thats: ["that", "is"],
+    theres: ["there", "is"], youre: ["you", "are"], theyre: ["they", "are"], isnt: ["is", "not"],
+    arent: ["are", "not"], wont: ["will", "not"], didnt: ["did", "not"], wasnt: ["was", "not"],
+    "1930s": ["nineteen", "thirties"], "1940s": ["nineteen", "forties"],
+    "1935": ["nineteen", "thirty", "five"], "1947": ["nineteen", "forty", "seven"],
+    "1877": ["eighteen", "seventy", "seven"], "1966": ["nineteen", "sixty", "six"],
+    mr: ["mister"], dr: ["doctor"], ok: ["okay"], cctv: ["cc", "tv"], dna: ["d", "n", "a"]
+  };
+  // words where any rough attempt counts (names, foreign words)
+  var LENIENT = { hisham: 1, orabi: 1, majed: 1, fares: 1, hassam: 1, khalid: 1, reda: 1, locard: 1, edmond: 1,
+    kollona: 1, amn: 1, bakhsh: 1, harbi: 1, osama: 1, hattar: 1, nabhan: 1, al: 1, interpol: 1, britannica: 1, cambridge: 1 };
+
+  function key(word) {
+    var k = String(word).toLowerCase().replace(/[‘’]/g, "'").replace(/[^a-z0-9']+/g, "");
+    return k.replace(/'/g, "");
+  }
+  // one display token can carry several keys: "(1935–1947)" -> 1935, 1947 ; "Al-Harbi" -> al, harbi
+  function keysOf(token) {
+    return String(token).split(/[–—\-\/]+/).map(key).filter(Boolean);
+  }
+  function tokenize(text) {
+    return String(text).split(/\s+/).filter(function (t) { return keysOf(t).length; });
+  }
+  function heardKeys(transcript, targetKeys) {
+    var toks = String(transcript).split(/\s+/).map(key).filter(Boolean);
+    var want = {};
+    targetKeys.forEach(function (k) { if (EXPANSIONS[k]) want[k] = EXPANSIONS[k]; });
+    var set = {};
+    targetKeys.forEach(function (k) { set[k] = 1; });
+    var out = [];
+    for (var i = 0; i < toks.length; i++) {
+      var merged = false;
+      // "short cut" -> shortcut, "cyber crime" -> cybercrime
+      for (var L = 3; L >= 2 && !merged; L--) {
+        if (i + L <= toks.length && set[toks.slice(i, i + L).join("")] && !set[toks[i]]) { out.push(toks.slice(i, i + L).join("")); i += L - 1; merged = true; }
+      }
+      if (merged) continue;
+      for (var c in want) {
+        var exp = want[c], ok = exp.length <= toks.length - i;
+        for (var j = 0; ok && j < exp.length; j++) if (toks[i + j] !== exp[j]) ok = false;
+        if (ok) { out.push(c); i += exp.length - 1; merged = true; break; }
+      }
+      if (!merged) out.push(toks[i]);
+    }
+    return out;
+  }
+  function lev(a, b) {
+    var m = a.length, n = b.length, prev = [], cur = [], i, j;
+    for (j = 0; j <= n; j++) prev[j] = j;
+    for (i = 1; i <= m; i++) {
+      cur = [i];
+      for (j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[n];
+  }
+  function sim(a, b) {
+    if (a === b) return 1;
+    var L = Math.max(a.length, b.length);
+    return L ? 1 - lev(a, b) / L : 0;
+  }
+  function skeleton(k) { // rough sound shape: used to forgive vowel mistakes
+    return k.replace(/ph/g, "f").replace(/ck/g, "k").replace(/c(?=[aou])/g, "k").replace(/c(?=[eiy])/g, "s")
+      .replace(/qu/g, "kw").replace(/(.)\1/g, "$1").replace(/[aeiouyh]/g, "");
+  }
+  // 2 = exact, 1 = close, -1 = different
+  function match(t, h) {
+    if (t === h) return 2;
+    if (LENIENT[t]) return (h.indexOf(t) >= 0 || t.indexOf(h) >= 0 || sim(t, h) >= 0.5) ? 2 : -1;
+    var s = sim(t, h);
+    if (s >= 0.85) return 2;
+    if (s >= 0.67) return 1;
+    var a = skeleton(t), b = skeleton(h);
+    if (a.length >= 2 && a === b && Math.abs(t.length - h.length) <= 2) return 1;
+    return -1;
+  }
+  // Needleman–Wunsch alignment; returns status per target key
+  function align(T, H) {
+    var n = T.length, m = H.length, GAP = -1, i, j;
+    var S = [], B = [];
+    for (i = 0; i <= n; i++) { S[i] = [i * GAP]; B[i] = [i ? "u" : ""]; }
+    for (j = 1; j <= m; j++) { S[0][j] = j * GAP; B[0][j] = "l"; }
+    for (i = 1; i <= n; i++) for (j = 1; j <= m; j++) {
+      var d = S[i - 1][j - 1] + match(T[i - 1], H[j - 1]), u = S[i - 1][j] + GAP, l = S[i][j - 1] + GAP;
+      if (d >= u && d >= l) { S[i][j] = d; B[i][j] = "d"; }
+      else if (u >= l) { S[i][j] = u; B[i][j] = "u"; }
+      else { S[i][j] = l; B[i][j] = "l"; }
+    }
+    var status = new Array(n), heard = new Array(n);
+    i = n; j = m;
+    while (i > 0 || j > 0) {
+      var b = B[i][j];
+      if (b === "d") { var q = match(T[i - 1], H[j - 1]); status[i - 1] = q === 2 ? "ok" : q === 1 ? "close" : "miss"; heard[i - 1] = H[j - 1]; i--; j--; }
+      else if (b === "u") { status[i - 1] = "miss"; i--; }
+      else { j--; }
+    }
+    return { status: status, heard: heard };
+  }
+  var WEIGHT = { ok: 1, close: 0.6, miss: 0 };
+  function score(target, transcript) {
+    var tokens = tokenize(target);
+    var keys = [], owner = [];
+    tokens.forEach(function (t, ti) { keysOf(t).forEach(function (k) { keys.push(k); owner.push(ti); }); });
+    var H = heardKeys(transcript, keys);
+    var al = align(keys, H);
+    var words = tokens.map(function (t) { return { text: t, status: "ok", keys: [] }; });
+    al.status.forEach(function (st, ki) {
+      var w = words[owner[ki]];
+      w.keys.push(keys[ki]);
+      if (st === "miss") w.status = "miss"; else if (st === "close" && w.status !== "miss") w.status = "close";
+    });
+    var total = 0;
+    al.status.forEach(function (st) { total += WEIGHT[st]; });
+    var pct = keys.length ? Math.round(100 * total / keys.length) : 0;
+    return { percent: pct, words: words, heard: H.join(" ") };
+  }
+  function best(target, alternatives) {
+    var r = null;
+    (alternatives.length ? alternatives : [""]).forEach(function (t) {
+      var s = score(target, t);
+      if (!r || s.percent > r.percent) r = s;
+    });
+    return r;
+  }
+  return { key: key, keysOf: keysOf, tokenize: tokenize, score: score, best: best, sim: sim };
+})();
+if (typeof module !== "undefined") module.exports = Scoring;
+</script>
+<script>
+const DATA = {"teacher":{"en":"Mr. Hisham Al-Orabi","ar":"الأستاذ هشام العرابي"},"members":[{"id":"majed","en":"Majed","last":"Al-Harbi","ar":"ماجد","arFull":"ماجد الحربي","slides":[1,2],"time":"دقيقة ونص تقريباً"},{"id":"fares","en":"Fares","last":"Osama","ar":"فارس","arFull":"فارس أسامة","slides":[3,4],"time":"دقيقتين تقريباً"},{"id":"hassam","en":"Hassam","last":"Bakhsh","ar":"حسام","arFull":"حسام بخش","slides":[5],"time":"دقيقة تقريباً","preparer":true},{"id":"khalid","en":"Khalid","last":"Al-Hattar","ar":"خالد","arFull":"خالد الهتار","slides":[6,7],"time":"دقيقتين تقريباً"},{"id":"reda","en":"Reda","last":"Nabhan","ar":"رضا","arFull":"رضا نبهان","slides":[8,9,10],"time":"دقيقة ونص تقريباً"}],"slides":{"1":{"title":"Crime Doesn't Pay (Title)","ar":"شريحة العنوان والمقدمة","lines":[["Good morning, Mr. Hisham, and good morning, everyone.","صباح الخير أستاذ هشام، وصباح الخير للجميع."],["Our project is about the unit \"Crime Doesn't Pay\".","مشروعنا عن وحدة \"الجريمة لا تفيد\"."],["Today we will explain what this saying means, the types of crime, and why people commit crimes.","اليوم بنشرح معنى هذه العبارة، وأنواع الجرائم، ولماذا يرتكب الناس الجرائم."],["We will also talk about the price of crime, how criminals get caught, and how we can stop crime.","وبنتكلم أيضاً عن ثمن الجريمة، وكيف يُقبض على المجرمين، وكيف نقدر نوقف الجريمة."],["Let's start.","خلّونا نبدأ."]]},"2":{"title":"What Does It Mean?","ar":"معنى العبارة","lines":[["First, what does \"crime doesn't pay\" mean?","أولاً، ما معنى \"الجريمة لا تفيد\"؟"],["It means that breaking the law never brings a real benefit.","معناها أن مخالفة القانون لا تجلب فائدة حقيقية أبداً."],["A criminal may get money for a short time, but the price he pays later is always bigger.","المجرم ممكن يحصل على فلوس لفترة قصيرة، لكن الثمن الذي يدفعه بعدها دائماً أكبر."],["This saying became famous in the 1930s and 1940s.","هذه العبارة اشتهرت في الثلاثينات والأربعينات."],["There was an American film series called \"Crime Does Not Pay\", and in every film the criminal was caught at the end.","كانت هناك سلسلة أفلام أمريكية اسمها \"Crime Does Not Pay\"، وفي كل فيلم يُقبض على المجرم في النهاية."],["Here are some key words: crime, criminal, victim, law, punishment and justice.","وهذه كلمات مهمة: جريمة، مجرم، ضحية، قانون، عقوبة، عدالة."],["Now Fares will tell you about the types of crime.","الحين فارس بيكلمكم عن أنواع الجرائم."]]},"3":{"title":"Types of Crime","ar":"أنواع الجرائم","lines":[["Thank you, Majed. There are many types of crime.","شكراً ماجد. هناك أنواع كثيرة من الجرائم."],["Theft means taking someone's money or things without permission.","السرقة: أخذ فلوس أو أغراض شخص بدون إذنه."],["Fraud means lying to people or tricking them to take their money.","الاحتيال: الكذب على الناس أو خداعهم لأخذ فلوسهم."],["Cybercrime means using computers or phones to hack, cheat or steal data.","الجرائم الإلكترونية: استخدام الكمبيوتر أو الجوال للاختراق أو الغش أو سرقة البيانات."],["Vandalism means damaging public or private property on purpose.","التخريب: إتلاف الممتلكات العامة أو الخاصة عن قصد."],["Drug crimes mean selling, carrying or using illegal drugs.","جرائم المخدرات: بيع أو حمل أو تعاطي المخدرات."],["And violent crime means attacking or hurting other people.","وجرائم العنف: الاعتداء على الناس أو إيذاؤهم."]]},"4":{"title":"Why People Turn to Crime","ar":"أسباب الجريمة","lines":[["So, why do people commit crimes?","طيب، لماذا يرتكب الناس الجرائم؟"],["The first reason is greed. Some people want easy money, fast.","السبب الأول الطمع. بعض الناس يريدون فلوساً سهلة وبسرعة."],["The second reason is bad friends. They can push you to break the rules.","السبب الثاني رفقاء السوء. ممكن يدفعونك لمخالفة القوانين."],["Poverty is another reason. Having no job or money can lead to wrong choices.","الفقر سبب آخر. عدم وجود وظيفة أو فلوس ممكن يقود لاختيارات خاطئة."],["Drugs are also a reason. Addiction makes people steal to buy more.","المخدرات أيضاً سبب. الإدمان يجعل الناس يسرقون ليشتروا أكثر."],["And some people grow up with no guidance from their family or school.","وبعض الناس يكبرون بدون توجيه من أهلهم أو مدرستهم."],["But remember: a reason is never an excuse. Every crime is a choice.","لكن تذكّروا: السبب ليس عذراً أبداً. كل جريمة اختيار."],["Now Hassam will show you the price of crime.","الحين حسام بيوريكم ثمن الجريمة."]]},"5":{"title":"The Price of Crime","ar":"ثمن الجريمة (الفاتورة)","lines":[["Thank you, Fares. Look at this receipt. This is the bill for crime.","شكراً فارس. انظروا لهذه الفاتورة. هذه فاتورة الجريمة."],["Criminals think crime is a shortcut to easy money, but in the end, the criminal always pays.","المجرمون يظنون الجريمة طريقاً مختصراً للفلوس السهلة، لكن في النهاية المجرم هو الذي يدفع دائماً."],["Prison time costs him his freedom.","السجن يكلّفه حريته."],["Heavy fines cost him his money.","الغرامات الكبيرة تكلّفه فلوسه."],["A criminal record costs him his future, because it is hard to find a job.","السجل الجنائي يكلّفه مستقبله، لأنه يصعب عليه أن يجد وظيفة."],["Family shame costs him the trust of his family.","فضيحة العائلة تكلّفه ثقة أهله."],["And guilt and fear cost him his peace of mind.","والشعور بالذنب والخوف يكلّفانه راحة باله."],["The total is his whole life, paid in full. That is why we say: crime doesn't pay.","المجموع هو حياته كلها، مدفوعة بالكامل. لهذا نقول: الجريمة لا تفيد."],["Now Khalid will talk about the victims.","الحين خالد بيتكلم عن الضحايا."]]},"6":{"title":"Victims and Society Pay Too","ar":"الضحايا والمجتمع يدفعون الثمن","lines":[["Thank you, Hassam. Crime does not only hurt the criminal.","شكراً حسام. الجريمة لا تضر المجرم فقط."],["Victims lose their money and property. They can get hurt, and they stop feeling safe, even at home.","الضحايا يخسرون فلوسهم وممتلكاتهم، وممكن يتأذون، ويفقدون إحساسهم بالأمان حتى في بيوتهم."],["Families live with worry, stress, shame and sadness. They may lose income when a parent goes to prison.","العائلات تعيش في قلق وضغط وحزن، وممكن تخسر دخلها إذا دخل الأب أو الأم السجن."],["Society pays too. Streets become less safe, and a lot of money goes to police, courts and prisons.","والمجتمع يدفع أيضاً. الشوارع تصبح أقل أماناً، وتُصرف فلوس كثيرة على الشرطة والمحاكم والسجون."],["And people lose trust in each other.","والناس يفقدون الثقة في بعضهم."],["So one person commits the crime, but many people pay the price.","يعني شخص واحد يرتكب الجريمة، لكن ناس كثيرين يدفعون الثمن."]]},"7":{"title":"Crime Always Leaves Traces","ar":"الجريمة تترك أثراً دائماً","lines":[["Many criminals think they will never be caught. But crime always leaves traces.","كثير من المجرمين يظنون أنهم لن يُقبض عليهم أبداً. لكن الجريمة دائماً تترك أثراً."],["Dr. Edmond Locard was a pioneer of forensic science. He said: \"Every contact leaves a trace.\"","الدكتور إدموند لوكار من رواد علم الأدلة الجنائية، وقال: \"كل تلامس يترك أثراً\"."],["Today, the police use fingerprints, because every fingerprint is unique.","اليوم الشرطة تستخدم البصمات، لأن كل بصمة مختلفة عن الأخرى."],["They use DNA. Even one hair can identify a person.","ويستخدمون الحمض النووي DNA. حتى شعرة واحدة تقدر تحدد هوية الشخص."],["They also use CCTV cameras, phone and internet records, and bank records.","ويستخدمون أيضاً كاميرات المراقبة، وسجلات الجوال والإنترنت، والسجلات البنكية."],["And of course, witnesses: people who saw the crime.","وطبعاً الشهود: الناس الذين شاهدوا الجريمة."],["So sooner or later, the criminal gets caught. Now Reda will tell you how we can stop crime.","يعني عاجلاً أو آجلاً يُقبض على المجرم. الحين رضا بيقول لكم كيف نوقف الجريمة."]]},"8":{"title":"Stop Crime Before It Starts","ar":"منع الجريمة + الخلاصة","lines":[["Thank you, Khalid. How can we stop crime before it starts?","شكراً خالد. كيف نوقف الجريمة قبل أن تبدأ؟"],["First, the family. Parents should teach their children right from wrong.","أولاً الأسرة. الأهل لازم يعلّمون أبناءهم الصح من الغلط."],["Second, the school. Lessons can explain the law and why it matters.","ثانياً المدرسة. الدروس تقدر تشرح القانون ولماذا هو مهم."],["Third, friends. Choose friends who keep you on the right path.","ثالثاً الأصدقاء. اختر أصدقاء يبقونك على الطريق الصحيح."],["And fourth, report it. Tell the police. In Saudi Arabia, you can use the Kollona Amn app.","ورابعاً بلّغ. أخبر الشرطة. في السعودية تقدر تستخدم تطبيق \"كلنا أمن\"."],["Our verdict is: crime may look easy, but its price is always higher. Crime doesn't pay, so choose the right path.","حكمنا النهائي: الجريمة قد تبدو سهلة، لكن ثمنها دائماً أكبر. الجريمة لا تفيد، فاختر الطريق الصحيح."]]},"9":{"title":"The Investigation Team","ar":"أعضاء المجموعة","lines":[["This is our team: Majed Al-Harbi, Fares Osama, Hassam Bakhsh, who prepared this presentation, Khalid Al-Hattar, and me, Reda Nabhan.","هذا فريقنا: ماجد الحربي، فارس أسامة، حسام بخش اللي أعدّ هذا العرض، خالد الهتار، وأنا رضا نبهان."]]},"10":{"title":"References","ar":"المراجع والختام","lines":[["These are the sources we used in our research, like the Cambridge Dictionary, Britannica and INTERPOL.","هذه المصادر التي استخدمناها في بحثنا، مثل قاموس كامبريدج وبريتانيكا والإنتربول."],["Thank you for listening. Do you have any questions?","شكراً لاستماعكم. هل عندكم أي أسئلة؟"]]}},"words":{"majed":[["benefit","بِنِفِت","فائدة"],["criminal","كرِمِنَل","مجرم"],["victim","ڤِكْتِم","ضحية"],["punishment","بَنِشْمِنْت","عقوبة"],["justice","جَسْتِس","عدالة"],["series","سِيريز","سلسلة"]],"fares":[["theft","ثِفْت","سرقة"],["fraud","فْرُود","احتيال"],["vandalism","ڤانْدَلِزَم","تخريب"],["property","پْرُوپَرْتي","ممتلكات"],["illegal","إلّيقَل","غير قانوني"],["greed","قْرِيد","طمع"],["poverty","پُوڤَرْتي","فقر"],["addiction","أدِكْشِن","إدمان"],["guidance","قايْدَنْس","توجيه"],["excuse","إكْسْكيوس","عذر"]],"hassam":[["receipt","رِسِيت (الـ p ما تنقال)","فاتورة / إيصال"],["shortcut","شورْتْكَت","طريق مختصر"],["freedom","فْرِيدَم","حرية"],["fines","فاينز","غرامات"],["criminal record","كرِمِنَل رِكورْد","سجل جنائي"],["shame","شيم","فضيحة / عار"],["guilt","قِلْت (الـ u ما تنقال)","شعور بالذنب"],["peace of mind","پِيس أوف مايْنْد","راحة البال"]],"khalid":[["property","پْرُوپَرْتي","ممتلكات"],["income","إنْكَم","دخل"],["society","سَسايَتي","المجتمع"],["courts","كورْتْس","محاكم"],["traces","تْرِيسِز","آثار"],["forensic","فَرِنْزِك","جنائي / أدلة جنائية"],["pioneer","پايَنِير","رائد"],["unique","يونِيك","فريد / ما يتكرر"],["identify","آيْدِنْتِفاي","يحدد هوية"],["witnesses","وِتْنِسِز","شهود"]],"reda":[["parents","پيرِنْتْس","الوالدين / الأهل"],["path","پاث","طريق"],["report","رِپورْت","يبلّغ"],["verdict","ڤِرْدِكْت","حكم نهائي"],["sources","سورْسِز","مصادر"],["research","رِسِرْچ","بحث"],["prepared","پْرِيپيرْد","أعدّ / جهّز"],["INTERPOL","إنْتَرْپول","الشرطة الدولية"],["Kollona Amn","كلّنا أمن","تطبيق للتبليغ"]]},"qa":{"majed":[["What does \"crime doesn't pay\" mean?","It means that crime never brings a real benefit. The criminal always pays a bigger price.","يعني الجريمة لا تجلب فائدة حقيقية، والمجرم دائماً يدفع ثمناً أكبر."],["Where did this saying come from?","It became famous in the 1930s and 1940s from an American film series called \"Crime Does Not Pay\".","اشتهرت في الثلاثينات والأربعينات من سلسلة أفلام أمريكية."]],"fares":[["Name three types of crime.","Theft, fraud and cybercrime.","السرقة، الاحتيال، الجرائم الإلكترونية."],["Why do people commit crimes?","Because of greed, bad friends, poverty, drugs and no guidance. But every crime is a choice.","بسبب الطمع ورفقاء السوء والفقر والمخدرات وقلة التوجيه، لكن كل جريمة اختيار."]],"hassam":[["Why did you use a receipt?","To show that the criminal pays for his crime with his freedom, money, future, trust and peace of mind.","عشان نوضح إن المجرم يدفع ثمن جريمته من حريته وفلوسه ومستقبله وثقة أهله وراحة باله."],["What does a criminal lose?","He loses his freedom, his money, his future and the trust of his family.","يخسر حريته وفلوسه ومستقبله وثقة أهله."]],"khalid":[["Who pays the price of crime?","The victims, the families and the whole society.","الضحايا والعائلات والمجتمع كله."],["How do the police catch criminals?","They use fingerprints, DNA, CCTV cameras, phone records, bank records and witnesses.","بالبصمات والـDNA وكاميرات المراقبة وسجلات الجوال والبنك والشهود."]],"reda":[["How can we stop crime?","Families and schools teach good values, we choose good friends, and we report crime to the police.","الأسرة والمدرسة تعلّم القيم، نختار أصدقاء صالحين، ونبلّغ الشرطة."],["What is the main message of your project?","Crime may look easy, but its price is always higher. Crime doesn't pay.","الجريمة قد تبدو سهلة لكن ثمنها أكبر دائماً. الجريمة لا تفيد."]]},"summary":[["Our project is about the saying \"Crime doesn't pay\". It means that crime never brings a real benefit.","مشروعنا عن عبارة \"الجريمة لا تفيد\"، ومعناها أن الجريمة لا تجلب فائدة حقيقية."],["People commit crimes because of greed, bad friends, poverty or drugs, but every crime is a choice.","الناس يرتكبون الجرائم بسبب الطمع أو رفقاء السوء أو الفقر أو المخدرات، لكن كل جريمة اختيار."],["The criminal always pays a big price: prison, fines and a lost future. Victims and society suffer too.","المجرم دائماً يدفع ثمناً كبيراً: السجن والغرامات وضياع المستقبل، والضحايا والمجتمع يتضررون أيضاً."],["The police can catch criminals with fingerprints, DNA and cameras.","الشرطة تقدر تقبض على المجرمين بالبصمات والـDNA والكاميرات."],["We can stop crime with good families, good schools and good friends. Crime doesn't pay, so choose the right path.","نقدر نمنع الجريمة بالأسرة والمدرسة والأصدقاء الصالحين. الجريمة لا تفيد، فاختر الطريق الصحيح."]]};
+const TIMINGS = {"L1-1":[[104,295,"Our"],[308,838,"project"],[852,960,"is"],[974,1232,"about"],[1246,1314,"the"],[1327,1735,"unit"],[1816,2129,"Crime"],[2142,2468,"Doesn't"],[2482,2930,"Pay"]],"L1-2":[[104,485,"Today"],[498,634,"we"],[648,784,"will"],[797,1327,"explain"],[1341,1504,"what"],[1517,1694,"this"],[1708,2047,"saying"],[2061,2577,"means"],[2699,2808,"the"],[2822,3148,"types"],[3161,3257,"of"],[3270,3773,"crime"],[3949,4058,"and"],[4072,4248,"why"],[4262,4629,"people"],[4642,4968,"commit"],[4982,5675,"crimes"]],"L1-0":[[104,322,"Good"],[335,811,"morning"],[988,1273,"Mr."],[1286,1830,"Hisham"],[2007,2115,"and"],[2129,2319,"good"],[2333,2849,"morning"],[3053,3678,"everyone"]],"L1-3":[[104,254,"We"],[267,444,"will"],[458,770,"also"],[784,1083,"talk"],[1096,1327,"about"],[1341,1422,"the"],[1436,1748,"price"],[1762,1857,"of"],[1871,2387,"crime"],[2591,2727,"how"],[2740,3270,"criminals"],[3284,3487,"get"],[3501,3949,"caught"],[4194,4276,"and"],[4289,4439,"how"],[4452,4574,"we"],[4588,4778,"can"],[4792,5077,"stop"],[5091,5621,"crime"]],"L1-4":[[104,430,"Let's"],[444,1001,"start"]],"L2-0":[[104,661,"First"],[811,1015,"what"],[1028,1273,"does"],[1327,1626,"crime"],[1640,1952,"doesn't"],[1966,2197,"pay"],[2265,2659,"mean"]],"L2-1":[[104,254,"It"],[267,553,"means"],[566,729,"that"],[743,1110,"breaking"],[1123,1232,"the"],[1246,1545,"law"],[1558,1925,"never"],[1939,2224,"brings"],[2238,2292,"a"],[2305,2550,"real"],[2564,3243,"benefit"]],"L2-2":[[104,254,"A"],[267,702,"criminal"],[716,865,"may"],[879,1055,"get"],[1069,1382,"money"],[1395,1572,"for"],[1585,1640,"a"],[1653,1979,"short"],[1993,2441,"time"],[2604,2754,"but"],[2767,2862,"the"],[2876,3202,"price"],[3216,3297,"he"],[3311,3637,"pays"],[3651,4017,"later"],[4031,4194,"is"],[4208,4602,"always"],[4615,5118,"bigger"]],"L2-3":[[104,376,"This"],[390,675,"saying"],[689,1083,"became"],[1096,1599,"famous"],[1612,1735,"in"],[1748,1816,"the"],[1830,2822,"1930s"],[2835,2998,"and"],[3012,4221,"1940s"]],"L2-4":[[104,281,"There"],[295,444,"was"],[458,553,"an"],[566,1137,"American"],[1151,1490,"film"],[1504,2006,"series"],[2020,2346,"called"],[2428,2781,"Crime"],[2795,2958,"Does"],[2971,3216,"Not"],[3229,3637,"Pay"],[3936,4099,"and"],[4112,4262,"in"],[4276,4520,"every"],[4534,4873,"film"],[4887,4996,"the"],[5009,5444,"criminal"],[5458,5634,"was"],[5648,5933,"caught"],[5947,6042,"at"],[6055,6151,"the"],[6164,6640,"end"]],"L2-5":[[104,349,"Here"],[362,471,"are"],[485,702,"some"],[716,960,"key"],[974,1504,"words"],[1694,2197,"crime"],[2319,2862,"criminal"],[3066,3569,"victim"],[3786,4140,"law"],[4343,4928,"punishment"],[4941,5077,"and"],[5091,5838,"justice"]],"L2-6":[[104,403,"Now"],[417,756,"Fares"],[770,892,"will"],[906,1164,"tell"],[1178,1327,"you"],[1341,1599,"about"],[1612,1694,"the"],[1708,2020,"types"],[2034,2115,"of"],[2129,2672,"crime"]],"L3-0":[[104,417,"Thank"],[430,702,"you"],[920,1477,"Majed"],[2418,2622,"There"],[2636,2731,"are"],[2745,3057,"many"],[3071,3397,"types"],[3410,3505,"of"],[3519,4076,"crime"]],"L3-1":[[104,444,"Theft"],[458,743,"means"],[757,1137,"taking"],[1151,1585,"someone's"],[1599,1979,"money"],[1993,2170,"or"],[2183,2523,"things"],[2536,2862,"without"],[2876,3569,"permission"]],"L3-2":[[104,498,"Fraud"],[512,797,"means"],[811,1083,"lying"],[1096,1191,"to"],[1205,1640,"people"],[1653,1776,"or"],[1789,2183,"tricking"],[2197,2387,"them"],[2401,2496,"to"],[2509,2767,"take"],[2781,2930,"their"],[2944,3433,"money"]],"L3-3":[[104,920,"Cybercrime"],[933,1178,"means"],[1191,1477,"using"],[1490,2129,"computers"],[2142,2278,"or"],[2292,2631,"phones"],[2645,2740,"to"],[2754,3202,"hack"],[3324,3691,"cheat"],[3786,3922,"or"],[3936,4221,"steal"],[4235,4697,"data"]],"L3-4":[[104,824,"Vandalism"],[838,1123,"means"],[1137,1667,"damaging"],[1680,2170,"public"],[2183,2319,"or"],[2333,2699,"private"],[2713,3189,"property"],[3202,3324,"on"],[3338,3977,"purpose"]],"L3-5":[[104,430,"Drug"],[444,838,"crimes"],[852,1083,"mean"],[1096,1640,"selling"],[1776,2319,"carrying"],[2333,2482,"or"],[2496,2822,"using"],[2835,3216,"illegal"],[3229,3895,"drugs"]],"L4-0":[[104,580,"So"],[757,920,"why"],[933,1069,"do"],[1083,1409,"people"],[1422,1721,"commit"],[1735,2414,"crimes"]],"L3-6":[[104,295,"And"],[308,770,"violent"],[784,1164,"crime"],[1178,1422,"means"],[1436,2074,"attacking"],[2088,2197,"or"],[2210,2536,"hurting"],[2550,2754,"other"],[2767,3311,"people"]],"L4-1":[[104,254,"The"],[267,634,"first"],[648,1028,"reason"],[1042,1191,"is"],[1205,1708,"greed"],[2649,2948,"Some"],[2962,3261,"people"],[3274,3505,"want"],[3519,3777,"easy"],[3791,4226,"money"],[4348,4973,"fast"]],"L4-2":[[104,254,"The"],[267,661,"second"],[675,1069,"reason"],[1083,1232,"is"],[1246,1531,"bad"],[1545,2197,"friends"],[3139,3315,"They"],[3329,3505,"can"],[3519,3791,"push"],[3804,3913,"you"],[3927,4035,"to"],[4049,4321,"break"],[4334,4443,"the"],[4457,5068,"rules"]],"L4-3":[[104,621,"Poverty"],[634,757,"is"],[770,1123,"another"],[1137,1680,"reason"],[2622,2976,"Having"],[2989,3166,"no"],[3179,3478,"job"],[3492,3587,"or"],[3601,3954,"money"],[3967,4185,"can"],[4198,4375,"lead"],[4389,4484,"to"],[4497,4769,"wrong"],[4783,5571,"choices"]],"L4-4":[[104,526,"Drugs"],[539,675,"are"],[689,1001,"also"],[1015,1083,"a"],[1096,1708,"reason"],[2649,3247,"Addiction"],[3261,3519,"makes"],[3533,3845,"people"],[3859,4198,"steal"],[4212,4321,"to"],[4334,4470,"buy"],[4484,4973,"more"]],"L4-5":[[104,308,"And"],[322,539,"some"],[553,865,"people"],[879,1096,"grow"],[1110,1259,"up"],[1273,1422,"with"],[1436,1640,"no"],[1653,2088,"guidance"],[2102,2238,"from"],[2251,2414,"their"],[2428,2876,"family"],[2890,3026,"or"],[3039,3610,"school"]],"L4-6":[[104,281,"But"],[295,865,"remember"],[1083,1137,"a"],[1151,1558,"reason"],[1572,1735,"is"],[1748,2047,"never"],[2061,2156,"an"],[2170,2998,"excuse"],[3940,4253,"Every"],[4266,4606,"crime"],[4620,4742,"is"],[4755,4823,"a"],[4837,5530,"choice"]],"L4-7":[[104,349,"Now"],[362,797,"Hassam"],[811,933,"will"],[947,1151,"show"],[1164,1300,"you"],[1314,1422,"the"],[1436,1735,"price"],[1748,1844,"of"],[1857,2401,"crime"]],"L5-1":[[104,607,"Criminals"],[621,852,"think"],[865,1259,"crime"],[1273,1409,"is"],[1422,1477,"a"],[1490,2074,"shortcut"],[2088,2210,"to"],[2224,2523,"easy"],[2536,2971,"money"],[3202,3365,"but"],[3379,3487,"in"],[3501,3596,"the"],[3610,3977,"end"],[4112,4221,"the"],[4235,4737,"criminal"],[4751,5118,"always"],[5132,5797,"pays"]],"L5-0":[[104,417,"Thank"],[430,743,"you"],[960,1626,"Fares"],[2568,2812,"Look"],[2826,2935,"at"],[2948,3179,"this"],[3193,3804,"receipt"],[4742,5014,"This"],[5027,5136,"is"],[5149,5258,"the"],[5272,5503,"bill"],[5516,5693,"for"],[5707,6264,"crime"]],"L5-3":[[104,430,"Heavy"],[444,906,"fines"],[920,1259,"cost"],[1273,1368,"him"],[1382,1558,"his"],[1572,2061,"money"]],"L5-2":[[104,471,"Prison"],[485,879,"time"],[892,1286,"costs"],[1300,1395,"him"],[1409,1585,"his"],[1599,2156,"freedom"]],"L5-4":[[104,254,"A"],[267,716,"criminal"],[729,1164,"record"],[1178,1572,"costs"],[1585,1694,"him"],[1708,1884,"his"],[1898,2428,"future"],[2659,3012,"because"],[3026,3121,"it"],[3134,3243,"is"],[3257,3515,"hard"],[3528,3623,"to"],[3637,3936,"find"],[3949,4017,"a"],[4031,4506,"job"]],"L5-5":[[104,566,"Family"],[580,988,"shame"],[1001,1409,"costs"],[1422,1531,"him"],[1545,1640,"the"],[1653,2006,"trust"],[2020,2088,"of"],[2102,2278,"his"],[2292,2917,"family"]],"L5-6":[[104,308,"And"],[322,621,"guilt"],[634,743,"and"],[757,1110,"fear"],[1123,1463,"cost"],[1477,1572,"him"],[1585,1748,"his"],[1762,2034,"peace"],[2047,2142,"of"],[2156,2699,"mind"]],"L5-7":[[104,254,"The"],[267,661,"total"],[675,824,"is"],[838,987,"his"],[1001,1259,"whole"],[1273,1776,"life"],[1898,2156,"paid"],[2170,2278,"in"],[2292,2835,"full"],[3777,4049,"That"],[4062,4198,"is"],[4212,4375,"why"],[4389,4565,"we"],[4579,5041,"say"],[5245,5543,"crime"],[5557,5883,"doesn't"],[5897,6345,"pay"]],"L5-8":[[104,349,"Now"],[362,811,"Khalid"],[824,947,"will"],[960,1232,"talk"],[1246,1490,"about"],[1504,1585,"the"],[1599,2319,"victims"]],"L6-0":[[104,417,"Thank"],[430,743,"you"],[960,1572,"Hassam"],[2514,2840,"Crime"],[2853,3016,"does"],[3030,3261,"not"],[3274,3505,"only"],[3519,3723,"hurt"],[3736,3832,"the"],[3845,4429,"criminal"]],"L6-2":[[104,634,"Families"],[648,811,"live"],[824,974,"with"],[988,1463,"worry"],[1626,2210,"stress"],[2319,2727,"shame"],[2822,2958,"and"],[2971,3759,"sadness"],[4701,4864,"They"],[4878,5054,"may"],[5068,5353,"lose"],[5367,5829,"income"],[5842,5978,"when"],[5992,6046,"a"],[6060,6413,"parent"],[6427,6658,"goes"],[6671,6766,"to"],[6780,7378,"prison"]],"L6-1":[[104,621,"Victims"],[634,852,"lose"],[865,1015,"their"],[1028,1368,"money"],[1382,1504,"and"],[1517,2197,"property"],[3139,3329,"They"],[3342,3519,"can"],[3533,3709,"get"],[3723,4144,"hurt"],[4361,4457,"and"],[4470,4579,"they"],[4592,4905,"stop"],[4918,5285,"feeling"],[5299,5802,"safe"],[5924,6128,"even"],[6141,6250,"at"],[6264,6780,"home"]],"L6-4":[[104,281,"And"],[295,634,"people"],[648,920,"lose"],[933,1286,"trust"],[1300,1382,"in"],[1395,1558,"each"],[1572,2007,"other"]],"L6-3":[[104,729,"Society"],[743,1096,"pays"],[1110,1599,"too"],[2541,2976,"Streets"],[2989,3370,"become"],[3383,3601,"less"],[3614,4076,"safe"],[4280,4375,"and"],[4389,4443,"a"],[4457,4701,"lot"],[4715,4796,"of"],[4810,5095,"money"],[5109,5353,"goes"],[5367,5462,"to"],[5476,6033,"police"],[6155,6495,"courts"],[6508,6603,"and"],[6617,7378,"prisons"]],"L7-0":[[104,444,"Many"],[458,974,"criminals"],[988,1232,"think"],[1246,1341,"they"],[1354,1504,"will"],[1517,1789,"never"],[1803,1939,"be"],[1952,2509,"caught"],[3451,3641,"But"],[3655,4022,"crime"],[4035,4416,"always"],[4429,4687,"leaves"],[4701,5462,"traces"]],"L6-5":[[104,390,"So"],[403,661,"one"],[675,1110,"person"],[1123,1517,"commits"],[1531,1640,"the"],[1653,2156,"crime"],[2305,2468,"but"],[2482,2767,"many"],[2781,3134,"people"],[3148,3324,"pay"],[3338,3433,"the"],[3447,4140,"price"]],"L7-1":[[104,593,"Dr."],[607,947,"Edmond"],[960,1382,"Locard"],[1395,1558,"was"],[1572,1626,"a"],[1640,2265,"pioneer"],[2278,2373,"of"],[2387,2917,"forensic"],[2930,3623,"science"],[4565,4769,"He"],[4783,5163,"said"],[5340,5584,"Every"],[5598,6209,"contact"],[6223,6427,"leaves"],[6440,6495,"a"],[6508,7160,"trace"]],"L7-2":[[104,621,"Today"],[770,865,"the"],[879,1286,"police"],[1300,1531,"use"],[1545,2387,"fingerprints"],[2523,2930,"because"],[2944,3202,"every"],[3216,3854,"fingerprint"],[3868,4004,"is"],[4017,4602,"unique"]],"L7-3":[[104,254,"They"],[267,526,"use"],[539,1232,"DNA"],[2174,2541,"Even"],[2554,2745,"one"],[2758,3071,"hair"],[3084,3247,"can"],[3261,3859,"identify"],[3872,3940,"a"],[3954,4592,"person"]],"L7-4":[[104,281,"They"],[295,607,"also"],[621,838,"use"],[852,1599,"CCTV"],[1612,2278,"cameras"],[2414,2781,"phone"],[2876,2998,"and"],[3012,3474,"internet"],[3488,4072,"records"],[4235,4384,"and"],[4398,4656,"bank"],[4670,5362,"records"]],"L7-6":[[104,403,"So"],[417,811,"sooner"],[824,947,"or"],[960,1409,"later"],[1558,1667,"the"],[1680,2088,"criminal"],[2102,2373,"gets"],[2387,2917,"caught"],[3859,4130,"Now"],[4144,4416,"Reda"],[4429,4565,"will"],[4579,4837,"tell"],[4851,4959,"you"],[4973,5122,"how"],[5136,5258,"we"],[5272,5462,"can"],[5476,5761,"stop"],[5774,6304,"crime"]],"L7-5":[[104,308,"And"],[322,417,"of"],[430,960,"course"],[1083,1844,"witnesses"],[2020,2360,"people"],[2373,2496,"who"],[2509,2686,"saw"],[2699,2822,"the"],[2835,3379,"crime"]],"L8-0":[[104,403,"Thank"],[417,702,"you"],[906,1422,"Khalid"],[2364,2582,"How"],[2595,2745,"can"],[2758,2880,"we"],[2894,3220,"stop"],[3234,3587,"crime"],[3601,3913,"before"],[3927,4035,"it"],[4049,4715,"starts"]],"L8-2":[[104,702,"Second"],[879,987,"the"],[1001,1599,"school"],[2541,3071,"Lessons"],[3084,3234,"can"],[3247,3709,"explain"],[3723,3832,"the"],[3845,4171,"law"],[4185,4375,"and"],[4389,4606,"why"],[4620,4728,"it"],[4742,5435,"matters"]],"L8-3":[[104,566,"Third"],[770,1422,"friends"],[2364,2704,"Choose"],[2717,3071,"friends"],[3084,3179,"who"],[3193,3451,"keep"],[3465,3614,"you"],[3628,3750,"on"],[3764,3845,"the"],[3859,4130,"right"],[4144,4728,"path"]],"L8-1":[[104,648,"First"],[797,920,"the"],[933,1612,"family"],[2554,2976,"Parents"],[2989,3179,"should"],[3193,3492,"teach"],[3505,3655,"their"],[3668,4130,"children"],[4144,4375,"right"],[4389,4606,"from"],[4620,5082,"wrong"]],"L10-0":[[104,390,"These"],[403,485,"are"],[498,607,"the"],[621,1096,"sources"],[1110,1232,"we"],[1246,1558,"used"],[1572,1653,"in"],[1667,1803,"our"],[1816,2468,"research"],[2672,2862,"like"],[2876,2971,"the"],[2985,3474,"Cambridge"],[3488,4208,"Dictionary"],[4371,5172,"Britannica"],[5267,5417,"and"],[5430,6137,"INTERPOL"]],"L8-4":[[104,308,"And"],[322,865,"fourth"],[1069,1463,"report"],[1477,1803,"it"],[2745,2989,"Tell"],[3003,3111,"the"],[3125,3791,"police"],[4728,4918,"In"],[4932,5285,"Saudi"],[5299,5897,"Arabia"],[6073,6182,"you"],[6196,6345,"can"],[6359,6549,"use"],[6562,6671,"the"],[6685,7147,"Kollona"],[7160,7649,"Amn"],[7663,8030,"app."]],"L9-0":[[104,390,"This"],[403,526,"is"],[539,675,"our"],[689,1151,"team"],[1341,1748,"Majed"],[1762,2536,"Al-Harbi"],[2767,3066,"Fares"],[3080,3678,"Osama"],[3895,4262,"Hassam"],[4276,4819,"Bakhsh"],[4941,5050,"who"],[5064,5526,"prepared"],[5539,5702,"this"],[5716,6612,"presentation"],[6816,7183,"Khalid"],[7197,7849,"Al-Hattar"],[8080,8202,"and"],[8216,8474,"me"],[8705,8949,"Reda"],[8963,9615,"Nabhan"]],"L8-5":[[104,295,"Our"],[308,716,"verdict"],[729,1123,"is"],[1314,1626,"crime"],[1640,1776,"may"],[1789,2047,"look"],[2061,2523,"easy"],[2699,2849,"but"],[2862,3026,"its"],[3039,3406,"price"],[3420,3569,"is"],[3583,3949,"always"],[3963,4493,"higher"],[5435,5734,"Crime"],[5747,6073,"doesn't"],[6087,6508,"pay"],[6630,6834,"so"],[6848,7120,"choose"],[7133,7242,"the"],[7255,7527,"right"],[7541,8125,"path"]],"L10-1":[[104,376,"Thank"],[390,498,"you"],[512,689,"for"],[702,1314,"listening"],[2255,2378,"Do"],[2391,2486,"you"],[2500,2677,"have"],[2690,2880,"any"],[2894,3723,"questions"]],"S2":[[104,254,"The"],[267,770,"criminal"],[784,1123,"always"],[1137,1395,"pays"],[1409,1477,"a"],[1490,1735,"big"],[1748,2305,"price"],[2496,3012,"prison"],[3202,3718,"fines"],[3732,3922,"and"],[3936,3990,"a"],[4004,4371,"lost"],[4384,4996,"future"],[5938,6467,"Victims"],[6481,6644,"and"],[6658,7215,"society"],[7228,7582,"suffer"],[7595,8071,"too"]],"S0":[[104,295,"Our"],[308,852,"project"],[865,974,"is"],[988,1232,"about"],[1246,1341,"the"],[1354,1789,"saying"],[1871,2197,"Crime"],[2210,2536,"doesn't"],[2550,2985,"pay"],[3927,4076,"It"],[4090,4375,"means"],[4389,4565,"that"],[4579,4959,"crime"],[4973,5258,"never"],[5272,5557,"brings"],[5571,5625,"a"],[5639,5883,"real"],[5897,6576,"benefit"]],"S1":[[104,458,"People"],[471,811,"commit"],[824,1300,"crimes"],[1314,1667,"because"],[1680,1789,"of"],[1803,2237,"greed"],[2387,2645,"bad"],[2659,3257,"friends"],[3379,3949,"poverty"],[4045,4221,"or"],[4235,4833,"drugs"],[4968,5159,"but"],[5172,5430,"every"],[5444,5811,"crime"],[5824,5947,"is"],[5960,6015,"a"],[6028,6721,"choice"]],"S3":[[104,254,"The"],[267,702,"police"],[716,892,"can"],[906,1246,"catch"],[1259,1735,"criminals"],[1748,1871,"with"],[1884,2727,"fingerprints"],[2849,3474,"DNA"],[3569,3718,"and"],[3732,4479,"cameras"]],"Qmajed-0":[[104,362,"What"],[376,607,"does"],[661,947,"crime"],[960,1273,"doesn't"],[1286,1517,"pay"],[1585,1979,"mean"]],"S4":[[104,281,"We"],[295,485,"can"],[498,797,"stop"],[811,1123,"crime"],[1137,1286,"with"],[1300,1504,"good"],[1517,2210,"families"],[2333,2564,"good"],[2577,3134,"schools"],[3229,3379,"and"],[3392,3569,"good"],[3583,4248,"friends"],[5190,5489,"Crime"],[5503,5829,"doesn't"],[5842,6264,"pay"],[6386,6590,"so"],[6603,6875,"choose"],[6889,6997,"the"],[7011,7283,"right"],[7296,7880,"path"]],"Amajed-0":[[104,254,"It"],[267,553,"means"],[566,743,"that"],[757,1137,"crime"],[1151,1436,"never"],[1449,1735,"brings"],[1748,1803,"a"],[1816,2061,"real"],[2074,2754,"benefit"],[3696,3832,"The"],[3845,4375,"criminal"],[4389,4728,"always"],[4742,5000,"pays"],[5014,5068,"a"],[5082,5380,"bigger"],[5394,6073,"price"]],"Qmajed-1":[[104,322,"Where"],[335,471,"did"],[485,661,"this"],[675,1001,"saying"],[1015,1232,"come"],[1246,1667,"from"]],"Amajed-1":[[104,267,"It"],[281,675,"became"],[689,1191,"famous"],[1205,1314,"in"],[1327,1409,"the"],[1422,2387,"1930s"],[2401,2564,"and"],[2577,3569,"1940s"],[3583,3746,"from"],[3759,3841,"an"],[3854,4371,"American"],[4384,4710,"film"],[4724,5213,"series"],[5227,5539,"called"],[5634,6001,"Crime"],[6015,6178,"Does"],[6191,6422,"Not"],[6436,6911,"Pay"]],"Qfares-0":[[104,417,"Name"],[430,675,"three"],[689,1001,"types"],[1015,1123,"of"],[1137,1694,"crime"]],"Afares-0":[[104,648,"Theft"],[824,1259,"fraud"],[1354,1504,"and"],[1517,2401,"cybercrime"]],"Qfares-1":[[104,335,"Why"],[349,485,"do"],[498,838,"people"],[852,1151,"commit"],[1164,1843,"crimes"]],"Afares-1":[[104,485,"Because"],[498,607,"of"],[621,1055,"greed"],[1232,1504,"bad"],[1517,2088,"friends"],[2183,2781,"poverty"],[2903,3420,"drugs"],[3515,3678,"and"],[3691,3854,"no"],[3868,4534,"guidance"],[5476,5679,"But"],[5693,5951,"every"],[5965,6304,"crime"],[6318,6440,"is"],[6454,6522,"a"],[6535,7242,"choice"]],"Qhosam-0":[[104,322,"Why"],[335,512,"did"],[526,621,"you"],[634,824,"use"],[838,892,"a"],[906,1545,"receipt"]],"Ahosam-0":[[104,240,"To"],[254,471,"show"],[485,621,"that"],[634,729,"the"],[743,1178,"criminal"],[1191,1545,"pays"],[1558,1694,"for"],[1708,1857,"his"],[1871,2237,"crime"],[2251,2387,"with"],[2401,2564,"his"],[2577,3066,"freedom"],[3270,3651,"money"],[3827,4452,"future"],[4642,5091,"trust"],[5104,5199,"and"],[5213,5498,"peace"],[5512,5607,"of"],[5621,6164,"mind"]],"Qhosam-1":[[104,322,"What"],[335,498,"does"],[512,580,"a"],[593,1042,"criminal"],[1055,1626,"lose"]],"Qkhalid-0":[[104,308,"Who"],[322,607,"pays"],[621,729,"the"],[743,1042,"price"],[1055,1164,"of"],[1178,1762,"crime"]],"Ahosam-1":[[104,295,"He"],[308,716,"loses"],[729,920,"his"],[933,1436,"freedom"],[1640,1816,"his"],[1830,2251,"money"],[2509,2713,"his"],[2727,3352,"future"],[3460,3542,"and"],[3555,3637,"the"],[3651,4004,"trust"],[4017,4085,"of"],[4099,4289,"his"],[4303,4928,"family"]],"Akhalid-0":[[104,240,"The"],[254,892,"victims"],[1001,1110,"the"],[1123,1803,"families"],[1898,2020,"and"],[2034,2102,"the"],[2115,2360,"whole"],[2373,3216,"society"]],"Qkhalid-1":[[104,295,"How"],[308,417,"do"],[430,539,"the"],[553,947,"police"],[960,1259,"catch"],[1273,1993,"criminals"]],"Qreda-0":[[104,322,"How"],[335,485,"can"],[498,607,"we"],[621,933,"stop"],[947,1504,"crime"]],"Akhalid-1":[[104,240,"They"],[254,498,"use"],[512,1314,"fingerprints"],[1477,2115,"DNA"],[2373,3161,"CCTV"],[3175,3827,"cameras"],[3977,4248,"phone"],[4262,4833,"records"],[4968,5240,"bank"],[5254,5770,"records"],[5865,6015,"and"],[6028,6884,"witnesses"]],"Qreda-1":[[104,322,"What"],[335,444,"is"],[458,553,"the"],[566,838,"main"],[852,1246,"message"],[1259,1327,"of"],[1341,1490,"your"],[1504,2251,"project"]],"Areda-0":[[104,634,"Families"],[648,784,"and"],[797,1205,"schools"],[1218,1558,"teach"],[1572,1762,"good"],[1776,2428,"values"],[2564,2699,"we"],[2713,3026,"choose"],[3039,3229,"good"],[3243,3827,"friends"],[4031,4167,"and"],[4180,4303,"we"],[4316,4724,"report"],[4738,5050,"crime"],[5064,5159,"to"],[5172,5267,"the"],[5281,5960,"police"]],"Areda-1":[[104,403,"Crime"],[417,553,"may"],[566,811,"look"],[824,1286,"easy"],[1463,1612,"but"],[1626,1789,"its"],[1803,2170,"price"],[2183,2346,"is"],[2360,2740,"always"],[2754,3311,"higher"],[4253,4579,"Crime"],[4592,4918,"doesn't"],[4932,5408,"pay"]]};
+const PASS = 75;
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const app = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const PK = "cdp-progress-v1";
+const loadP = () => { try { return JSON.parse(localStorage.getItem(PK) || "{}"); } catch (e) { return {}; } };
+const saveP = p => { try { localStorage.setItem(PK, JSON.stringify(p)); } catch (e) {} };
+const bestOf = id => loadP()[id] || 0;
+const record = (id, pct) => { const p = loadP(); if ((p[id] || 0) < pct) { p[id] = pct; saveP(p); } };
+
+// ---------- data ----------
+const ITEMS = {};
+function mkItem(o) { ITEMS[o.id] = o; return o; }
+function lineItems(m) {
+  const out = [];
+  m.slides.forEach(n => DATA.slides[n].lines.forEach(([en, ar], i) => out.push(mkItem({ id: `L${n}-${i}`, en, ar, slide: n, kind: "line" }))));
+  return out;
+}
+const SUMMARY_ITEMS = DATA.summary.map(([en, ar], i) => mkItem({ id: `S${i}`, en, ar, kind: "summary" }));
+const qaItems = m => (DATA.qa[m.id] || []).map(([q, a, am], i) => mkItem({ id: `A${m.id}-${i}`, qid: `Q${m.id}-${i}`, q, en: a, ar: am, kind: "answer" }));
+const WORDHINT = {};
+Object.values(DATA.words).flat().forEach(([w, say, mean]) => { WORDHINT[Scoring.key(w.split(" ")[0])] = { w, say, mean }; });
+const slideList = m => m.slides.length === 1 ? `الشريحة ${m.slides[0]}` : m.slides.length === 2 ? `الشريحتين ${m.slides[0]} و ${m.slides[1]}` : `الشرائح ${m.slides.join(" و ")}`;
+const memberOf = id => DATA.members.find(m => m.id === id);
+function progressOf(m) {
+  const ids = lineItems(m).concat(SUMMARY_ITEMS).map(i => i.id);
+  return { done: ids.filter(id => bestOf(id) >= PASS).length, total: ids.length };
+}
+
+// ---------- audio ----------
+const AUDIO = {};
+let unlocked = false;
+function getAudio(id) {
+  if (!AUDIO[id]) { const a = new Audio(`audio/lines/${id}.mp3`); a.preload = "auto"; AUDIO[id] = a; }
+  return AUDIO[id];
+}
+function unlockAll() { // iOS: media must be touched inside a user gesture once
+  if (unlocked) return; unlocked = true;
+  Object.values(AUDIO).forEach(a => { if (current && current.audio === a) return; try { a.muted = true; const p = a.play(); if (p) p.then(() => { a.pause(); a.currentTime = 0; a.muted = false; }).catch(() => { a.muted = false; }); } catch (e) {} });
+}
+let current = null;
+function stopAudio() {
+  if (current) { const c = current; current = null; c.audio.pause(); cancelAnimationFrame(c.raf); c.tick && c.tick(-1); }
+  try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {}
+}
+function speak(text, rate) {
+  try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = "en-US"; u.rate = rate || 1; speechSynthesis.speak(u); } catch (e) {}
+}
+function playRange(item, startMs, endMs, rate, tick) {
+  stopAudio();
+  const a = getAudio(item.id);
+  const me = { audio: a, tick };
+  current = me;
+  const go = () => {
+    if (current !== me) return;
+    try { a.playbackRate = rate; a.preservesPitch = true; a.mozPreservesPitch = true; } catch (e) {}
+    try { a.currentTime = (startMs || 0) / 1000; } catch (e) {}
+    const stopAt = endMs != null ? endMs / 1000 : Infinity;
+    const loop = () => {
+      if (current !== me) return;
+      const t = a.currentTime * 1000;
+      tick && tick(t);
+      if (a.currentTime >= stopAt || a.ended) { a.pause(); tick && tick(-1); current = null; return; }
+      me.raf = requestAnimationFrame(loop);
+    };
+    const p = a.play();
+    if (p && p.catch) p.catch(() => { current = null; tick && tick(-1); speak(endMs != null ? segText(item, startMs, endMs) : item.en, rate); });
+    me.raf = requestAnimationFrame(loop);
+    a.onended = () => { if (current === me) { tick && tick(-1); current = null; } };
+  };
+  if (a.readyState >= 1) go();
+  else {
+    const onErr = () => { if (current === me) { current = null; tick && tick(-1); speak(item.en, rate); } };
+    a.addEventListener("loadedmetadata", go, { once: true });
+    a.addEventListener("error", onErr, { once: true });
+    try { a.load(); } catch (e) {}
+  }
+}
+function segText(item, s, e) { // words inside a time range (for the speech fallback)
+  const tk = Scoring.tokenize(item.en), wt = wordTimes(item);
+  return tk.filter((t, i) => wt[i][0] != null && wt[i][0] >= s - 1 && wt[i][1] <= e + 1).join(" ") || item.en;
+}
+const WT = {};
+function wordTimes(item) {
+  if (WT[item.id]) return WT[item.id];
+  const tokens = Scoring.tokenize(item.en), marks = TIMINGS[item.id] || [];
+  const out = []; let mi = 0;
+  tokens.forEach(tok => {
+    const joined = Scoring.keysOf(tok).join("");
+    let start = null, end = null, got = "";
+    while (mi < marks.length) {
+      const mk = Scoring.key(marks[mi][2]);
+      if (got && !(mk && joined.indexOf(mk) >= 0 && got.length < joined.length)) break;
+      if (start === null) start = marks[mi][0];
+      end = marks[mi][1]; got += mk; mi++;
+      if (got.length >= joined.length) break;
+    }
+    out.push([start, end]);
+  });
+  // fill gaps by interpolation
+  for (let i = 0; i < out.length; i++) if (out[i][0] == null) { const prev = i ? out[i - 1][1] : 0; out[i] = [prev, prev + 400]; }
+  return WT[item.id] = out;
+}
+
+// ---------- recognition ----------
+let rec = null;
+function startRec(item, el) {
+  if (!SR) { toast("التصحيح الصوتي ما يشتغل في هذا المتصفح 😕 افتح الرابط في Chrome (أندرويد) أو Safari (آيفون)"); return; }
+  if (rec) { stopRec(); return; }
+  stopAudio();
+  const r = new SR();
+  r.lang = "en-US"; r.interimResults = true; r.maxAlternatives = 3; r.continuous = true;
+  const st = { item, el, r, alts: [], error: null };
+  rec = st;
+  const live = el.querySelector(".live"), btn = el.querySelector(".mic");
+  btn.classList.add("rec"); btn.innerHTML = "⏹ أتكلم… اضغط للإيقاف";
+  live.textContent = "🎧 …";
+  let silence = setTimeout(() => stopRec(), 8000);
+  const maxT = setTimeout(() => stopRec(), 20000);
+  const nt = Scoring.tokenize(item.en).length;
+  r.onresult = e => {
+    const texts = ["", "", ""]; let allFinal = true;
+    for (let i = 0; i < e.results.length; i++) {
+      const res = e.results[i];
+      for (let k = 0; k < 3; k++) { const alt = res[Math.min(k, res.length - 1)]; texts[k] += " " + (alt ? alt.transcript : ""); }
+      if (!res.isFinal) allFinal = false;
+    }
+    st.alts = texts.map(t => t.trim()).filter(Boolean);
+    live.textContent = st.alts[0] || "…";
+    const nh = (st.alts[0] || "").split(/\s+/).filter(Boolean).length;
+    clearTimeout(silence);
+    if (allFinal && nh >= nt) { stopRec(); return; }
+    silence = setTimeout(() => stopRec(), nh ? 1800 : 8000);
+  };
+  r.onerror = e => { st.error = e.error; };
+  r.onend = () => { clearTimeout(silence); clearTimeout(maxT); if (rec === st) { rec = null; finish(st); } };
+  try { r.start(); } catch (e) { rec = null; btn.classList.remove("rec"); btn.innerHTML = "🎤 قلها"; toast("ما قدرت أشغّل المايك، جرّب مرة ثانية"); }
+}
+function stopRec() { if (!rec) return; try { rec.r.stop(); } catch (e) {} }
+function finish(st) {
+  const btn = st.el.querySelector(".mic"), live = st.el.querySelector(".live");
+  btn.classList.remove("rec"); btn.innerHTML = "🎤 قلها";
+  const ERR = { "not-allowed": "اسمح للموقع باستخدام المايك 🎤 (من إعدادات المتصفح)", "service-not-allowed": "اسمح للموقع باستخدام المايك 🎤", network: "التعرف على الصوت يحتاج إنترنت 📶", "audio-capture": "ما لقيت مايك في الجهاز" };
+  if (st.error && ERR[st.error]) { live.textContent = ""; toast(ERR[st.error]); return; }
+  if (!st.alts.length) { live.textContent = ""; toast("ما سمعت شي 👂 اضغط 🎤 وتكلم بصوت واضح وقريب من الجوال"); return; }
+  const result = Scoring.best(st.item.en, st.alts);
+  showResult(st.item, st.el, result);
+}
+function showResult(item, el, r) {
+  const spans = el.querySelectorAll(".line .w");
+  r.words.forEach((w, i) => { if (spans[i]) { spans[i].classList.remove("ok", "close", "miss", "now"); spans[i].classList.add(w.status); } });
+  record(item.id, r.percent); refreshProgress();
+  if (r.percent >= PASS) { const d = el.querySelector(".done"); if (d) d.hidden = false; }
+  const res = el.querySelector(".res"); res.hidden = false;
+  const cls = r.percent >= 90 ? "g" : r.percent >= PASS ? "y" : "r";
+  const msg = r.percent >= 90 ? "ممتاز! 🔥 نطقك واضح" : r.percent >= PASS ? "زين جداً 👏 عيد الكلمات الصفراء والحمراء" : r.percent >= 50 ? "قريب! اسمع الجملة مرة ثانية وقلها ببطء 🐢" : "لا تستعجل 🙂 اسمع الجملة أول، بعدين قلها كلمة كلمة";
+  const bad = r.words.map((w, i) => ({ ...w, i })).filter(w => w.status !== "ok");
+  res.innerHTML = `<div class="score"><div class="pct ${cls}">${r.percent}%</div><div><div class="msg">${msg}</div><div class="heard"><b>سمعت منك:</b> ${esc(r.heard || "—")}</div></div></div>`
+    + (bad.length ? `<div class="hint">كلمات تحتاج تدريب — اضغط الكلمة عشان تسمعها لحالها:</div><div class="chips">${bad.map(w => {
+      const h = WORDHINT[Scoring.keysOf(w.text)[0]];
+      return `<button class="chip ${w.status}" data-i="${w.i}"><span class="en">🔊 ${esc(w.text.replace(/[,.!?:;"()]+$/g, ""))}</span>${h ? `<span class="say">${esc(h.say)}</span>` : ""}</button>`;
+    }).join("")}</div>` : `<div class="hint">كل الكلمات صح ✅</div>`)
+    + `<div class="legend"><span><i style="background:#DFF5E8"></i>صح</span><span><i style="background:#FFF1C2"></i>قريب</span><span><i style="background:#FFE0E0"></i>غلط أو ناقص</span></div>`
+    + `<div class="acts"><button class="btn again">🔁 جرّب مرة ثانية</button>${r.percent >= PASS ? `<button class="btn next">الجملة التالية ⬇</button>` : `<button class="btn next" data-slow="1">🐢 اسمعها ببطء</button>`}</div>`;
+  if (r.percent >= 90) confetti(el);
+  res.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+function confetti(el) {
+  const E = ["⭐", "🎉", "✨", "🏆", "👏"];
+  for (let i = 0; i < 10; i++) { const s = document.createElement("span"); s.className = "conf"; s.textContent = E[i % E.length]; s.style.left = (8 + Math.random() * 84) + "%"; s.style.top = (30 + Math.random() * 50) + "%"; s.style.animationDelay = (Math.random() * .3) + "s"; el.appendChild(s); setTimeout(() => s.remove(), 1500); }
+}
+let toastT;
+function toast(msg) { let t = document.querySelector(".toast"); if (!t) { t = document.createElement("div"); t.className = "toast"; document.body.appendChild(t); } t.textContent = msg; clearTimeout(toastT); toastT = setTimeout(() => t.remove(), 3800); }
+
+// ---------- rendering ----------
+const BAR = back => `<div class="bar">${back ? `<a class="back" href="#" aria-label="رجوع">›</a>` : ""}<div><div class="t">CRIME <span>DOESN'T PAY</span></div><div class="s">تدريب النطق · English Project</div></div></div><div class="tape">CRIME SCENE · DO NOT CROSS · CRIME DOESN'T PAY · CRIME SCENE · DO NOT CROSS · CRIME DOESN'T PAY · CRIME SCENE</div>`;
+function cardHTML(item, idx) {
+  const raw = item.en.split(/\s+/);
+  const words = raw.map(t => Scoring.keysOf(t).length ? `<span class="w">${esc(t)}</span>` : `<span>${esc(t)}</span>`).join(" ");
+  const done = bestOf(item.id) >= PASS;
+  return `<div class="card" data-id="${item.id}">
+    <div class="chead"><div class="num">${idx + 1}</div>${item.kind === "line" ? `<div class="hint">الشريحة ${item.slide}</div>` : ""}<div class="done" ${done ? "" : "hidden"}>✓ أتقنتها</div></div>
+    ${item.q ? `<div class="qrow"><button class="qplay" data-q="${item.qid}" aria-label="اسمع السؤال">▶</button><div class="q">${esc(item.q)}</div></div>` : ""}
+    <div class="line">${words}</div>
+    <div class="ar">${esc(item.ar)}</div>
+    <div class="acts"><button class="btn play">▶ اسمع</button><button class="btn slow">🐢 ببطء</button><button class="btn mic">🎤 قلها</button></div>
+    <div class="live"></div>
+    <div class="res" hidden></div>
+  </div>`;
+}
+function renderHome() {
+  document.title = "Crime Doesn't Pay — تدريب النطق";
+  app.innerHTML = BAR(false) + `<div class="wrap">
+    <div class="home-hero"><div class="k">ENGLISH PROJECT · PRACTICE</div><h1>CRIME <span>DOESN'T PAY</span></h1><p>اسمع كل جملة، قلها بصوتك، والموقع يصحح لك. اختر اسمك 👇</p></div>
+    ${DATA.members.map((m, i) => { const p = progressOf(m); return `<a class="mem" href="#${m.id}"><div class="marker sm">${i + 1}</div><div class="who"><div class="name">${esc((m.en + " " + m.last).toUpperCase())}<small>${esc(m.arFull)}</small></div><div class="sub">${slideList(m)} · ${m.preparer ? "★ معد التقرير · " : ""}أتقن ${p.done} من ${p.total}</div><div class="pr"><i style="width:${p.total ? Math.round(100 * p.done / p.total) : 0}%"></i></div></div><div class="go">‹</div></a>`; }).join("")}
+    <div class="note">💡 يوم الأحد الأستاذ ممكن يختار <b>أي واحد</b> يشرح المشروع كله، فكل عضو يتدرب على قسم «الملخص» بعد جمله.</div>
+    ${SR ? "" : `<div class="note warn">⚠️ التصحيح الصوتي ما يشتغل في هذا المتصفح. افتح الرابط في <b>Chrome</b> (أندرويد) أو <b>Safari</b> (آيفون). الاستماع يشتغل عادي.<button class="btn copy">📋 نسخ الرابط</button></div>`}
+    <div class="foot">عرض مجموعة ${esc(DATA.members.find(m => m.preparer).arFull)} · ${esc(DATA.teacher.ar)}<br><span class="en">Powered by neural voices · scoring runs on your phone</span></div>
+  </div>`;
+}
+function renderMember(m) {
+  const idx = DATA.members.indexOf(m), before = DATA.members[idx - 1], after = DATA.members[idx + 1];
+  const lines = lineItems(m), qa = qaItems(m), words = DATA.words[m.id] || [];
+  document.title = `${m.en} — Crime Doesn't Pay`;
+  const groups = m.slides.map(n => ({ n, title: DATA.slides[n].title.replace(" (Title)", ""), ar: DATA.slides[n].ar, items: lines.filter(i => i.slide === n) }));
+  let k = 0;
+  app.innerHTML = BAR(true) + `<div class="wrap">
+    <div class="hero"><div class="marker">${idx + 1}</div><div class="who">
+      <div class="name">${esc((m.en + " " + m.last).toUpperCase())}</div><div class="arname">${esc(m.arFull)}${m.preparer ? " · ★ معد التقرير" : ""}</div>
+      <div class="role">دورك: <b>${slideList(m)}</b> · الوقت: ${esc(m.time)}<br>${before ? `تتكلم بعد <b>${esc(before.ar)}</b>` : "<b>أنت أول واحد يتكلم</b>"} · ${after ? `وبعدك <b>${esc(after.ar)}</b>` : "<b>وأنت تختم العرض</b>"}</div>
+      <div class="prog"><i id="pbar"></i></div><div class="progt" id="ptxt"></div></div></div>
+    ${SR ? "" : `<div class="note warn">⚠️ التصحيح الصوتي ما يشتغل في هذا المتصفح. افتح الرابط في <b>Chrome</b> (أندرويد) أو <b>Safari</b> (آيفون). الاستماع يشتغل عادي.<button class="btn copy">📋 نسخ الرابط</button></div>`}
+    <div class="tabs"><button class="tab on" data-p="lines">جملي <span class="c">${lines.length}</span></button><button class="tab" data-p="summary">الملخص <span class="c">${SUMMARY_ITEMS.length}</span></button><button class="tab" data-p="words">الكلمات</button><button class="tab" data-p="qa">أسئلة الأستاذ</button></div>
+    <div class="panel" data-p="lines">
+      <div class="hint">اضغط <b>▶ اسمع</b> وتابع الكلمة المضيئة، بعدين اضغط <b>🎤 قلها</b> وكرر الجملة. اضغط أي كلمة عشان تسمعها لحالها.</div>
+      ${groups.map(g => `<h2 class="sec">الشريحة ${g.n} · ${esc(g.ar)} <span class="en">${esc(g.title)}</span></h2>` + g.items.map(it => cardHTML(it, k++)).join("")).join("")}
+    </div>
+    <div class="panel" data-p="summary" hidden>
+      <div class="note">الأستاذ ممكن يسأل <b>أي عضو</b> يشرح المشروع كله. هذي ٥ جمل تلخص كل شي — احفظها.</div>
+      ${SUMMARY_ITEMS.map((it, i) => cardHTML(it, i)).join("")}
+    </div>
+    <div class="panel" data-p="words" hidden>
+      <div class="hint">الكلمات الصعبة في جزئك. اضغط الكلمة عشان تسمعها، وتحتها طريقة نطقها بالعربي ومعناها.</div>
+      <div class="wgrid">${words.map(([w, say, mean]) => `<button class="wcard" data-w="${esc(w)}"><div class="en">${esc(w)}</div><div class="say">${esc(say)}</div><div class="m">${esc(mean)}</div><div class="spk">🔊 اسمع</div></button>`).join("")}</div>
+      <div class="hint" style="margin-top:10px">پ = P · ڤ = V · چ = CH</div>
+    </div>
+    <div class="panel" data-p="qa" hidden>
+      <div class="hint">لو سألك الأستاذ بعد العرض. اسمع السؤال، وتدرّب على الجواب.</div>
+      ${qa.map((it, i) => cardHTML(it, i)).join("")}
+    </div>
+    <div class="foot">عرض مجموعة ${esc(DATA.members.find(x => x.preparer).arFull)} · ${esc(DATA.teacher.ar)}</div>
+  </div>`;
+  refreshProgress();
+  lines.concat(SUMMARY_ITEMS).forEach(it => getAudio(it.id));
+}
+function refreshProgress() {
+  const m = memberOf(location.hash.replace("#", "").split("/")[0]); if (!m) return;
+  const p = progressOf(m), bar = document.getElementById("pbar"), txt = document.getElementById("ptxt");
+  if (bar) bar.style.width = (p.total ? Math.round(100 * p.done / p.total) : 0) + "%";
+  if (txt) txt.textContent = p.done >= p.total ? `أتقنت كل الجمل 🏆 ${p.done} من ${p.total}` : `أتقنت ${p.done} من ${p.total} جملة (٧٥٪ أو أكثر = أتقنتها)`;
+}
+function render() {
+  stopAudio(); stopRec();
+  const id = location.hash.replace("#", "").split("/")[0];
+  const m = memberOf(id);
+  window.scrollTo(0, 0);
+  if (m) renderMember(m); else renderHome();
+}
+window.addEventListener("hashchange", render);
+
+// ---------- events ----------
+function itemOf(el) { const c = el.closest(".card"); return c ? ITEMS[c.dataset.id] : null; }
+function karaoke(el) {
+  const spans = el.querySelectorAll(".line .w"), item = itemOf(el), wt = wordTimes(item);
+  return t => {
+    spans.forEach((s, i) => { const on = t >= 0 && wt[i][0] != null && t >= wt[i][0] - 30 && t < (wt[i + 1] && wt[i + 1][0] != null ? wt[i + 1][0] - 30 : wt[i][1] + 150); s.classList.toggle("now", on); });
+  };
+}
+app.addEventListener("click", e => {
+  setTimeout(unlockAll, 0);
+  const t = e.target.closest("button, .w");
+  if (!t) return;
+  const card = t.closest(".card"), item = card ? ITEMS[card.dataset.id] : null;
+  if (t.classList.contains("tab")) {
+    document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x === t));
+    document.querySelectorAll(".panel").forEach(p => p.hidden = p.dataset.p !== t.dataset.p);
+    stopAudio(); stopRec(); return;
+  }
+  if (t.classList.contains("copy")) { navigator.clipboard && navigator.clipboard.writeText(location.href).then(() => toast("نسخت الرابط ✅ الصقه في Chrome أو Safari")).catch(() => toast(location.href)); return; }
+  if (t.classList.contains("wcard")) {
+    const w = t.dataset.w, k = Scoring.key(w.split(" ")[0]);
+    for (const it of Object.values(ITEMS)) { // play the word from a sentence that contains it (same voice)
+      const tk = Scoring.tokenize(it.en), i = tk.findIndex(x => Scoring.keysOf(x)[0] === k);
+      if (i >= 0 && TIMINGS[it.id] && TIMINGS[it.id].length) { const wt = wordTimes(it), n = w.split(" ").length, e2 = wt[Math.min(i + n - 1, wt.length - 1)][1]; playRange(it, wt[i][0] - 60, e2 + 80, 0.85); return; }
+    }
+    speak(w, 0.8); return;
+  }
+  if (!item) return;
+  if (t.classList.contains("w")) {
+    const i = Array.from(card.querySelectorAll(".line .w")).indexOf(t), wt = wordTimes(item);
+    if (wt[i][0] != null) playRange(item, wt[i][0] - 60, wt[i][1] + 80, 0.85, k => t.classList.toggle("now", k >= 0)); else speak(t.textContent, 0.8);
+    return;
+  }
+  if (t.classList.contains("qplay")) { stopAudio(); playRange({ id: t.dataset.q, en: item.q }, 0, null, 1); return; }
+  if (t.classList.contains("play")) { playRange(item, 0, null, 1, karaoke(card)); return; }
+  if (t.classList.contains("slow")) { playRange(item, 0, null, 0.7, karaoke(card)); return; }
+  if (t.classList.contains("mic")) { startRec(item, card); return; }
+  if (t.classList.contains("chip")) { const i = +t.dataset.i, wt = wordTimes(item); playRange(item, wt[i][0] - 60, wt[i][1] + 80, 0.75); return; }
+  if (t.classList.contains("again")) { card.querySelectorAll(".line .w").forEach(s => s.classList.remove("ok", "close", "miss")); card.querySelector(".res").hidden = true; card.querySelector(".live").textContent = ""; startRec(item, card); return; }
+  if (t.classList.contains("next")) {
+    if (t.dataset.slow) { playRange(item, 0, null, 0.7, karaoke(card)); return; }
+    let n = card.nextElementSibling; while (n && !n.classList.contains("card")) n = n.nextElementSibling;
+    if (!n) { toast("خلصت هذا القسم 🏆 جرّب القسم اللي بعده من فوق"); return; }
+    document.querySelectorAll(".card.focus").forEach(c => c.classList.remove("focus")); n.classList.add("focus");
+    n.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => n.classList.remove("focus"), 2500);
+    return;
+  }
+});
+document.addEventListener("touchend", unlockAll, { once: true, passive: true });
+render();
+</script>
+</body>
+</html>
