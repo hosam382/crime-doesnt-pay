@@ -35,7 +35,7 @@ button{font-family:inherit;cursor:pointer}
 .prog i{display:block;height:100%;width:0;background:var(--yellow);border-radius:99px;transition:width .5s}
 .progt{font-size:12px;color:#c9d0d7;margin-top:5px}
 .tabs{position:sticky;top:62px;z-index:15;display:flex;gap:6px;background:var(--bg);padding:10px 0 8px}
-.tab{flex:1;border:0;background:#fff;border-radius:12px;padding:10px 4px;font-weight:800;font-size:13px;color:var(--muted);box-shadow:0 1px 3px rgba(0,0,0,.06);white-space:nowrap}
+.tab{flex:1;min-width:0;border:0;background:#fff;border-radius:12px;padding:10px 2px;font-weight:800;font-size:13px;color:var(--muted);box-shadow:0 1px 3px rgba(0,0,0,.06);white-space:nowrap}
 .tab.on{background:var(--dark);color:#fff}
 .tab .c{display:inline-block;min-width:18px;padding:0 5px;border-radius:99px;background:var(--yellow);color:#111;font-size:11px;margin-inline-start:3px}
 h2.sec{font-size:15px;margin:16px 2px 2px;display:flex;align-items:center;gap:8px}
@@ -461,7 +461,7 @@ function renderMember(m) {
       <div class="role">دورك: <b>${slideList(m)}</b> · الوقت: ${esc(m.time)}<br>${before ? `تتكلم بعد <b>${esc(before.ar)}</b>` : "<b>أنت أول واحد يتكلم</b>"} · ${after ? `وبعدك <b>${esc(after.ar)}</b>` : "<b>وأنت تختم العرض</b>"}</div>
       <div class="prog"><i id="pbar"></i></div><div class="progt" id="ptxt"></div></div></div>
     ${SR ? "" : `<div class="note warn">⚠️ التصحيح الصوتي ما يشتغل في هذا المتصفح. افتح الرابط في <b>Chrome</b> (أندرويد) أو <b>Safari</b> (آيفون). الاستماع يشتغل عادي.<button class="btn copy">📋 نسخ الرابط</button></div>`}
-    <div class="tabs"><button class="tab on" data-p="lines">جملي <span class="c">${lines.length}</span></button><button class="tab" data-p="summary">الملخص <span class="c">${SUMMARY_ITEMS.length}</span></button><button class="tab" data-p="words">الكلمات</button><button class="tab" data-p="qa">أسئلة الأستاذ</button></div>
+    <div class="tabs"><button class="tab on" data-p="lines">جملي <span class="c">${lines.length}</span></button><button class="tab" data-p="summary">الملخص <span class="c">${SUMMARY_ITEMS.length}</span></button><button class="tab" data-p="words">الكلمات</button><button class="tab" data-p="qa">الأسئلة</button></div>
     <div class="panel" data-p="lines">
       <div class="hint">اضغط <b>▶ اسمع</b> وتابع الكلمة المضيئة، بعدين اضغط <b>🎤 قلها</b> وكرر الجملة. اضغط أي كلمة عشان تسمعها لحالها.</div>
       ${groups.map(g => `<h2 class="sec">الشريحة ${g.n} · ${esc(g.ar)} <span class="en">${esc(g.title)}</span></h2>` + g.items.map(it => cardHTML(it, k++)).join("")).join("")}
@@ -476,7 +476,7 @@ function renderMember(m) {
       <div class="hint" style="margin-top:10px">پ = P · ڤ = V · چ = CH</div>
     </div>
     <div class="panel" data-p="qa" hidden>
-      <div class="hint">لو سألك الأستاذ بعد العرض. اسمع السؤال، وتدرّب على الجواب.</div>
+      <div class="hint">أسئلة متوقعة من الأستاذ بعد العرض. اسمع السؤال، وتدرّب على الجواب.</div>
       ${qa.map((it, i) => cardHTML(it, i)).join("")}
     </div>
     <div class="foot">عرض مجموعة ${esc(DATA.members.find(x => x.preparer).arFull)} · ${esc(DATA.teacher.ar)}</div>
