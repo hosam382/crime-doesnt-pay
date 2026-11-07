@@ -327,6 +327,18 @@ function playRange(item, startMs, endMs, rate, tick) {
     try { a.load(); } catch (e) {}
   }
 }
+const WAUDIO = {};
+function playWord(key, fallback) {
+  stopAudio();
+  if (!key) return fallback();
+  let a = WAUDIO[key];
+  if (a === false) return fallback();
+  if (!a) { a = new Audio(`audio/words/${key}.mp3`); a.preload = "auto"; WAUDIO[key] = a; a.addEventListener("error", () => { WAUDIO[key] = false; }, { once: true }); }
+  const me = { audio: a, tick: null }; current = me;
+  const p = a.play();
+  if (p && p.catch) p.catch(() => { WAUDIO[key] = false; if (current === me) { current = null; fallback(); } });
+  a.onended = () => { if (current === me) current = null; };
+}
 function segText(item, s, e) { // words inside a time range (for the speech fallback)
   const tk = Scoring.tokenize(item.en), wt = wordTimes(item);
   return tk.filter((t, i) => wt[i][0] != null && wt[i][0] >= s - 1 && wt[i][1] <= e + 1).join(" ") || item.en;
@@ -359,35 +371,55 @@ function startRec(item, el) {
   if (!SR) { toast("التصحيح الصوتي ما يشتغل في هذا المتصفح 😕 افتح الرابط في Chrome (أندرويد) أو Safari (آيفون)"); return; }
   if (rec) { stopRec(); return; }
   stopAudio();
-  const r = new SR();
-  r.lang = "en-US"; r.interimResults = true; r.maxAlternatives = 3; r.continuous = true;
-  const st = { item, el, r, alts: [], error: null };
+  const nt = Scoring.tokenize(item.en).length;
+  // Keep listening until the student finishes the WHOLE sentence: phones end recognition on every
+  // short pause, so we restart it and keep what was already heard instead of scoring half a sentence.
+  const st = { item, el, r: null, alts: [], base: ["", "", ""], error: null, stopped: false, t0: Date.now() };
   rec = st;
   const live = el.querySelector(".live"), btn = el.querySelector(".mic");
-  btn.classList.add("rec"); btn.innerHTML = "⏹ أتكلم… اضغط للإيقاف";
-  live.textContent = "🎧 …";
-  let silence = setTimeout(() => stopRec(), 8000);
-  const maxT = setTimeout(() => stopRec(), 20000);
-  const nt = Scoring.tokenize(item.en).length;
-  r.onresult = e => {
-    const texts = ["", "", ""]; let allFinal = true;
-    for (let i = 0; i < e.results.length; i++) {
-      const res = e.results[i];
-      for (let k = 0; k < 3; k++) { const alt = res[Math.min(k, res.length - 1)]; texts[k] += " " + (alt ? alt.transcript : ""); }
-      if (!res.isFinal) allFinal = false;
-    }
-    st.alts = texts.map(t => t.trim()).filter(Boolean);
-    live.textContent = st.alts[0] || "…";
-    const nh = (st.alts[0] || "").split(/\s+/).filter(Boolean).length;
-    clearTimeout(silence);
-    if (allFinal && nh >= nt) { stopRec(); return; }
-    silence = setTimeout(() => stopRec(), nh ? 1800 : 8000);
+  btn.classList.add("rec"); btn.innerHTML = "⏹ خلصت؟ اضغط هنا";
+  live.textContent = "🎧 تكلّم براحتك… قل الجملة كاملة";
+  const MAX = Math.min(60000, Math.max(25000, nt * 3000));
+  const words = () => (st.alts[0] || "").split(/\s+/).filter(Boolean).length;
+  // pause allowed before we stop: generous until most of the sentence is heard
+  const pauseFor = () => { const nh = words(); return nh === 0 ? 10000 : nh < nt * 0.8 ? 6000 : 3000; };
+  let silence = setTimeout(() => stopRec(), pauseFor());
+  const maxT = setTimeout(() => stopRec(), MAX);
+  const arm = () => { clearTimeout(silence); silence = setTimeout(() => stopRec(), pauseFor()); };
+  const begin = () => {
+    const r = new SR();
+    r.lang = "en-US"; r.interimResults = true; r.maxAlternatives = 3; r.continuous = true;
+    st.r = r;
+    r.onresult = e => {
+      const texts = st.base.slice(); let allFinal = true;
+      for (let i = 0; i < e.results.length; i++) {
+        const res = e.results[i];
+        for (let k = 0; k < 3; k++) { const alt = res[Math.min(k, res.length - 1)]; texts[k] += " " + (alt ? alt.transcript : ""); }
+        if (!res.isFinal) allFinal = false;
+      }
+      st.alts = texts.map(t => t.replace(/\s+/g, " ").trim()).filter(Boolean);
+      live.textContent = st.alts[0] || "…";
+      if (allFinal && words() >= nt) { stopRec(); return; }
+      arm();
+    };
+    r.onerror = e => { if (e.error !== "no-speech" && e.error !== "aborted") st.error = e.error; };
+    r.onend = () => {
+      if (rec !== st) return;
+      const fatal = st.error && st.error !== "network";
+      if (!st.stopped && !fatal && Date.now() - st.t0 < MAX) {
+        // the phone stopped listening on a pause: carry on from where the student is
+        const a = st.alts.length ? st.alts : [""];
+        st.base = [0, 1, 2].map(k => (a[k] || a[0]) + " ");
+        try { begin(); return; } catch (err) {}
+      }
+      clearTimeout(silence); clearTimeout(maxT); rec = null; finish(st);
+    };
+    r.start();
   };
-  r.onerror = e => { st.error = e.error; };
-  r.onend = () => { clearTimeout(silence); clearTimeout(maxT); if (rec === st) { rec = null; finish(st); } };
-  try { r.start(); } catch (e) { rec = null; btn.classList.remove("rec"); btn.innerHTML = "🎤 قلها"; toast("ما قدرت أشغّل المايك، جرّب مرة ثانية"); }
+  st.stop = () => { st.stopped = true; clearTimeout(silence); try { st.r.stop(); } catch (e) { if (rec === st) { rec = null; finish(st); } } };
+  try { begin(); } catch (e) { rec = null; btn.classList.remove("rec"); btn.innerHTML = "🎤 قلها"; toast("ما قدرت أشغّل المايك، جرّب مرة ثانية"); }
 }
-function stopRec() { if (!rec) return; try { rec.r.stop(); } catch (e) {} }
+function stopRec() { if (!rec) return; rec.stop(); }
 function finish(st) {
   const btn = st.el.querySelector(".mic"), live = st.el.querySelector(".live");
   btn.classList.remove("rec"); btn.innerHTML = "🎤 قلها";
@@ -522,21 +554,23 @@ app.addEventListener("click", e => {
     const w = t.dataset.w, k = Scoring.key(w.split(" ")[0]);
     for (const it of Object.values(ITEMS)) { // play the word from a sentence that contains it (same voice)
       const tk = Scoring.tokenize(it.en), i = tk.findIndex(x => Scoring.keysOf(x)[0] === k);
-      if (i >= 0 && TIMINGS[it.id] && TIMINGS[it.id].length) { const wt = wordTimes(it), n = w.split(" ").length, e2 = wt[Math.min(i + n - 1, wt.length - 1)][1]; playRange(it, wt[i][0] - 60, e2 + 80, 0.85); return; }
+      if (i >= 0 && TIMINGS[it.id] && TIMINGS[it.id].length) { const wt = wordTimes(it), n = w.split(" ").length, e2 = wt[Math.min(i + n - 1, wt.length - 1)][1]; playWord(w.split(" ").map(x => Scoring.key(x)).join("-"), () => playRange(it, wt[i][0] - 60, e2 + 80, 0.85)); return; }
     }
-    speak(w, 0.8); return;
+    playWord(w.split(" ").map(x => Scoring.key(x)).join("-"), () => speak(w, 0.8)); return;
   }
   if (!item) return;
   if (t.classList.contains("w")) {
     const i = Array.from(card.querySelectorAll(".line .w")).indexOf(t), wt = wordTimes(item);
-    if (wt[i][0] != null) playRange(item, wt[i][0] - 60, wt[i][1] + 80, 0.85, k => t.classList.toggle("now", k >= 0)); else speak(t.textContent, 0.8);
+    const ks = Scoring.keysOf(t.textContent);
+    const slice = () => { if (wt[i][0] != null) playRange(item, wt[i][0] - 60, wt[i][1] + 120, 0.85, k => t.classList.toggle("now", k >= 0)); else speak(t.textContent, 0.8); };
+    if (ks.length === 1) { t.classList.add("now"); setTimeout(() => t.classList.remove("now"), 900); playWord(ks[0], slice); } else slice();
     return;
   }
   if (t.classList.contains("qplay")) { stopAudio(); playRange({ id: t.dataset.q, en: item.q }, 0, null, 1); return; }
   if (t.classList.contains("play")) { playRange(item, 0, null, 1, karaoke(card)); return; }
   if (t.classList.contains("slow")) { playRange(item, 0, null, 0.7, karaoke(card)); return; }
   if (t.classList.contains("mic")) { startRec(item, card); return; }
-  if (t.classList.contains("chip")) { const i = +t.dataset.i, wt = wordTimes(item); playRange(item, wt[i][0] - 60, wt[i][1] + 80, 0.75); return; }
+  if (t.classList.contains("chip")) { const i = +t.dataset.i, wt = wordTimes(item), ks = Scoring.keysOf(Scoring.tokenize(item.en)[i]); const slice = () => playRange(item, wt[i][0] - 60, wt[i][1] + 120, 0.75); if (ks.length === 1) playWord(ks[0], slice); else slice(); return; }
   if (t.classList.contains("again")) { card.querySelectorAll(".line .w").forEach(s => s.classList.remove("ok", "close", "miss")); card.querySelector(".res").hidden = true; card.querySelector(".live").textContent = ""; startRec(item, card); return; }
   if (t.classList.contains("next")) {
     if (t.dataset.slow) { playRange(item, 0, null, 0.7, karaoke(card)); return; }
