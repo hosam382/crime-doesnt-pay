@@ -8,7 +8,7 @@
 <title>Crime Doesn't Pay — تدريب النطق</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cairo:wght@400;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cairo:wght@400;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 :root{--dark:#171B20;--dark2:#262C33;--yellow:#FFC72C;--cyan:#1FA9D6;--cyan-dk:#0B6E91;--red:#E23D3D;--green:#1F9D61;--bg:#F1F3F5;--card:#fff;--ink:#0F1215;--muted:#6B7580;--line:#E2E6EA;--r:16px}
 *{box-sizing:border-box}
@@ -310,16 +310,13 @@ function progressOf(m) {
 const AUDIO = {};
 let unlocked = false;
 function getAudio(id) {
-  if (!AUDIO[id]) { const a = new Audio(`audio/lines/${id}.mp3`); a.preload = "auto"; AUDIO[id] = a; }
+  if (!AUDIO[id]) { const a = new Audio(); a.preload = "none"; a.src = `audio/lines/${id}.mp3`; AUDIO[id] = a; }
   return AUDIO[id];
 }
-function unlockAll() { // iOS: media must be touched inside a user gesture once
-  if (unlocked) return; unlocked = true;
-  Object.values(AUDIO).forEach(a => { if (current && current.audio === a) return; try { a.muted = true; const p = a.play(); if (p) p.then(() => { a.pause(); a.currentTime = 0; a.muted = false; }).catch(() => { a.muted = false; }); } catch (e) {} });
-}
+function unlockAll() {} // play() is now called straight inside the tap, so no warm-up of every clip is needed
 let current = null;
 function stopAudio() {
-  if (current) { const c = current; current = null; c.audio.pause(); cancelAnimationFrame(c.raf); c.tick && c.tick(-1); }
+  if (current) { const c = current; current = null; c.audio.pause(); clearTimeout(c.raf); c.tick && c.tick(-1); }
   try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {}
 }
 function speak(text, rate) {
@@ -340,11 +337,11 @@ function playRange(item, startMs, endMs, rate, tick) {
       const t = a.currentTime * 1000;
       tick && tick(t);
       if (a.currentTime >= stopAt || a.ended) { a.pause(); tick && tick(-1); current = null; return; }
-      me.raf = requestAnimationFrame(loop);
+      me.raf = setTimeout(loop, 50);
     };
     const p = a.play();
     if (p && p.catch) p.catch(() => { current = null; tick && tick(-1); speak(endMs != null ? segText(item, startMs, endMs) : item.en, rate); });
-    me.raf = requestAnimationFrame(loop);
+    me.raf = setTimeout(loop, 50);
     a.onended = () => { if (current === me) { tick && tick(-1); current = null; } };
   };
   if (a.readyState >= 1) go();
@@ -352,7 +349,9 @@ function playRange(item, startMs, endMs, rate, tick) {
     const onErr = () => { if (current === me) { current = null; tick && tick(-1); speak(item.en, rate); } };
     a.addEventListener("loadedmetadata", go, { once: true });
     a.addEventListener("error", onErr, { once: true });
-    try { a.load(); } catch (e) {}
+    a.preload = "auto";
+    // start inside the tap so phones allow sound; go() then seeks to the right spot
+    try { const p0 = a.play(); if (p0 && p0.catch) p0.catch(() => {}); } catch (e) {}
   }
 }
 const WAUDIO = {};
@@ -541,7 +540,6 @@ function renderMember(m) {
     <div class="foot">عرض مجموعة ${esc(DATA.members.find(x => x.preparer).arFull)} · ${esc(DATA.teacher.ar)}</div>
   </div>`;
   refreshProgress();
-  lines.concat(SUMMARY_ITEMS).forEach(it => getAudio(it.id));
 }
 function refreshProgress() {
   const m = memberOf(location.hash.replace("#", "").split("/")[0]); if (!m) return;
@@ -562,8 +560,14 @@ window.addEventListener("hashchange", render);
 function itemOf(el) { const c = el.closest(".card"); return c ? ITEMS[c.dataset.id] : null; }
 function karaoke(el) {
   const spans = el.querySelectorAll(".line .w"), item = itemOf(el), wt = wordTimes(item);
+  let last = -2;
   return t => {
-    spans.forEach((s, i) => { const on = t >= 0 && wt[i][0] != null && t >= wt[i][0] - 30 && t < (wt[i + 1] && wt[i + 1][0] != null ? wt[i + 1][0] - 30 : wt[i][1] + 150); s.classList.toggle("now", on); });
+    let cur = -1;
+    if (t >= 0) for (let i = 0; i < spans.length; i++) { if (wt[i][0] != null && t >= wt[i][0] - 30 && t < (wt[i + 1] && wt[i + 1][0] != null ? wt[i + 1][0] - 30 : wt[i][1] + 150)) { cur = i; break; } }
+    if (cur === last) return;
+    if (last >= 0 && spans[last]) spans[last].classList.remove("now");
+    if (cur >= 0 && spans[cur]) spans[cur].classList.add("now");
+    last = cur;
   };
 }
 app.addEventListener("click", e => {
