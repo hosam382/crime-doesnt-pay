@@ -39,6 +39,12 @@ button{font-family:inherit;cursor:pointer}
 .tab.on{background:var(--dark);color:#fff}
 .tab .c{display:inline-block;min-width:18px;padding:0 5px;border-radius:99px;background:var(--yellow);color:#111;font-size:11px;margin-inline-start:3px}
 h2.sec{font-size:15px;margin:16px 2px 2px;display:flex;align-items:center;gap:8px}
+.slidebox{margin-top:18px;background:var(--dark);border-radius:var(--r);overflow:hidden;color:#fff}
+.slidebox .sbtag{font-size:13px;font-weight:700;color:var(--yellow);padding:10px 12px 8px;line-height:1.5}
+.slidebox img{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#222}
+.slidebox .sbcap{padding:9px 12px;font-weight:800;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.slidebox .sbn{background:var(--yellow);color:#111;border-radius:8px;padding:1px 8px;font-size:13px}
+.slidebox .en{color:#aab3bd;font-weight:600;font-size:13px}
 h2.sec::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--yellow);flex:none}
 h2.sec .en{color:var(--muted);font-weight:600;font-size:13px}
 .hint{font-size:13px;color:var(--muted);margin:4px 2px 0;line-height:1.7}
@@ -522,7 +528,11 @@ function renderMember(m) {
     <div class="tabs"><button class="tab on" data-p="lines">جملي <span class="c">${lines.length}</span></button><button class="tab" data-p="summary">أسئلة المشروع <span class="c">${SUMMARY_ITEMS.length}</span></button><button class="tab" data-p="words">الكلمات</button><button class="tab" data-p="qa">الأسئلة</button></div>
     <div class="panel" data-p="lines">
       <div class="hint">اضغط <b>▶ اسمع</b> وتابع الكلمة المضيئة، بعدين اضغط <b>🎤 قلها</b> وكرر الجملة. اضغط أي كلمة عشان تسمعها لحالها.</div>
-      ${groups.map(g => `<h2 class="sec">الشريحة ${g.n} · ${esc(g.ar)} <span class="en">${esc(g.title)}</span></h2>` + g.items.map(it => cardHTML(it, k++)).join("")).join("")}
+      ${groups.map((g, gi) => `<div class="slidebox">
+        <div class="sbtag">📍 ${gi === 0 ? "هنا تبدأ أنت" : "بعدها تنتقل لهذي الشريحة"} — الشاشة تكون على هذي الشريحة وأنت تقول الكلام اللي تحتها</div>
+        <img src="img/slides/s${String(g.n).padStart(2, "0")}.jpg" loading="lazy" decoding="async" width="800" height="450" alt="الشريحة ${g.n}">
+        <div class="sbcap"><span class="sbn">الشريحة ${g.n} من ${Object.keys(DATA.slides).length}</span> ${esc(g.ar)} <span class="en">${esc(g.title)}</span></div>
+      </div>` + g.items.map(it => cardHTML(it, k++)).join("")).join("")}
     </div>
     <div class="panel" data-p="summary" hidden>
       <div class="note">الأستاذ ممكن يسأل <b>أي عضو</b> عن المشروع كله. هذي ٥ أسئلة متوقعة، وتحت كل سؤال جوابه. اسمع السؤال، بعدين تدرّب تقول الجواب.</div>
