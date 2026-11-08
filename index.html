@@ -242,7 +242,33 @@ var Scoring = (function () {
     });
     return r;
   }
-  return { key: key, keysOf: keysOf, tokenize: tokenize, score: score, best: best, sim: sim };
+  // Has the speaker reached the END of the sentence? true when one of the last two target words
+  // was heard (ok/close) — used to decide when to stop listening, never to grade.
+  function reachedEnd(target, transcript) {
+    var keys = [];
+    tokenize(target).forEach(function (t) { keysOf(t).forEach(function (k) { keys.push(k); }); });
+    if (!keys.length) return true;
+    var H = heardKeys(transcript, keys);
+    if (!H.length) return false;
+    var st = align(keys, H).status, n = keys.length;
+    for (var i = Math.max(0, n - 2); i < n; i++) if (st[i] === "ok" || st[i] === "close") return true;
+    return false;
+  }
+  // Phones (Android Chrome) often repeat earlier text inside later results; join without doubling.
+  function joinParts(parts) {
+    var acc = "";
+    parts.forEach(function (p) {
+      var t = String(p || "").replace(/\s+/g, " ").trim();
+      if (!t) return;
+      var a = acc.toLowerCase(), b = t.toLowerCase();
+      if (!acc) acc = t;
+      else if (b.indexOf(a) === 0) acc = t;          // cumulative repeat: replace
+      else if (a.slice(-b.length) === b) return;     // exact tail repeat: skip
+      else acc += " " + t;
+    });
+    return acc;
+  }
+  return { key: key, keysOf: keysOf, tokenize: tokenize, score: score, best: best, sim: sim, reachedEnd: reachedEnd, joinParts: joinParts };
 })();
 if (typeof module !== "undefined") module.exports = Scoring;
 </script>
@@ -379,10 +405,11 @@ function startRec(item, el) {
   const live = el.querySelector(".live"), btn = el.querySelector(".mic");
   btn.classList.add("rec"); btn.innerHTML = "⏹ خلصت؟ اضغط هنا";
   live.textContent = "🎧 تكلّم براحتك… قل الجملة كاملة";
-  const MAX = Math.min(60000, Math.max(25000, nt * 3000));
-  const words = () => (st.alts[0] || "").split(/\s+/).filter(Boolean).length;
-  // pause allowed before we stop: generous until most of the sentence is heard
-  const pauseFor = () => { const nh = words(); return nh === 0 ? 10000 : nh < nt * 0.8 ? 6000 : 3000; };
+  const MAX = Math.min(70000, Math.max(30000, nt * 3500));
+  // We only stop by ourselves once the LAST words of the sentence were heard. Word counts are not
+  // trusted (Android repeats earlier text in later results), so a half sentence is never graded.
+  const done = () => st.alts.some(a => Scoring.reachedEnd(item.en, a));
+  const pauseFor = () => !st.alts.length ? 12000 : done() ? 1500 : 8000;
   let silence = setTimeout(() => stopRec(), pauseFor());
   const maxT = setTimeout(() => stopRec(), MAX);
   const arm = () => { clearTimeout(silence); silence = setTimeout(() => stopRec(), pauseFor()); };
@@ -391,15 +418,13 @@ function startRec(item, el) {
     r.lang = "en-US"; r.interimResults = true; r.maxAlternatives = 3; r.continuous = true;
     st.r = r;
     r.onresult = e => {
-      const texts = st.base.slice(); let allFinal = true;
+      const parts = [[], [], []];
       for (let i = 0; i < e.results.length; i++) {
         const res = e.results[i];
-        for (let k = 0; k < 3; k++) { const alt = res[Math.min(k, res.length - 1)]; texts[k] += " " + (alt ? alt.transcript : ""); }
-        if (!res.isFinal) allFinal = false;
+        for (let k = 0; k < 3; k++) { const alt = res[Math.min(k, res.length - 1)]; parts[k].push(alt ? alt.transcript : ""); }
       }
-      st.alts = texts.map(t => t.replace(/\s+/g, " ").trim()).filter(Boolean);
-      live.textContent = st.alts[0] || "…";
-      if (allFinal && words() >= nt) { stopRec(); return; }
+      st.alts = parts.map((p, k) => Scoring.joinParts([st.base[k], Scoring.joinParts(p)])).filter(Boolean);
+      live.textContent = (st.alts[0] || "…") + (done() ? "" : "  …كمّل");
       arm();
     };
     r.onerror = e => { if (e.error !== "no-speech" && e.error !== "aborted") st.error = e.error; };
@@ -409,7 +434,7 @@ function startRec(item, el) {
       if (!st.stopped && !fatal && Date.now() - st.t0 < MAX) {
         // the phone stopped listening on a pause: carry on from where the student is
         const a = st.alts.length ? st.alts : [""];
-        st.base = [0, 1, 2].map(k => (a[k] || a[0]) + " ");
+        st.base = [0, 1, 2].map(k => a[k] || a[0]);
         try { begin(); return; } catch (err) {}
       }
       clearTimeout(silence); clearTimeout(maxT); rec = null; finish(st);
